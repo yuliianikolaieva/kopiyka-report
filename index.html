@@ -68,7 +68,7 @@ tr:hover{background:#f9fafb}
   <div class="logo-dot">K</div>
   <div>
     <h1>KOPIYKA Group — Тижневий розбір</h1>
-    <div class="subtitle">Bolt Food UA · Бренди KOPIYKA / KOPIYKA MINI / SANTIM · Динаміка, час доставки та SKU-доступність</div>
+    <div class="subtitle">Bolt Food UA · Бренди KOPIYKA / KOPIYKA MINI / SANTIM · Динаміка, CVP, час доставки та SKU-доступність</div>
   </div>
   <div class="report-meta">
     Дані: 20.04 – 22.06.2026<br>
@@ -137,9 +137,83 @@ tr:hover{background:#f9fafb}
   </div>
 </div>
 
-<!-- SECTION 2: DELIVERY -->
+<!-- SECTION 2: CVP MONTHLY -->
 <div class="section">
-  <h2>2. Avg Delivery Time та Late rate</h2>
+  <h2>2. CVP — місячний огляд (червень vs травень 2026)</h2>
+  <div class="insight warn">
+    <div class="insight-title">Трафік падає, але конверсія і частота тримають GMV</div>
+    <div class="insight-text">Покази <b>−15,8%</b>, перегляди меню <b>−14,8%</b> по групі — основний ризик у видимості. Та оскільки <b>conversion rate +4 ппт</b> і <b>частота замовлень +4,6%</b>, місячний GMV навіть зріс (+1,7%, €25 919). Найгірша видимість у <b>KOPIYKA MINI (покази −23%)</b> — попри те, що це формат-драйвер.</div>
+  </div>
+
+  <h3 style="margin-top:18px">Output-метрики (місяць)</h3>
+  <div class="grid-4" style="margin-bottom:8px">
+    <div class="card kpi"><div class="kpi-label">GMV (місяць)</div><div class="kpi-value">€25,9k</div><div class="kpi-sub up">+1,7%</div></div>
+    <div class="card kpi"><div class="kpi-label">Замовлення</div><div class="kpi-value">2 120</div><div class="kpi-sub down">−1,8%</div></div>
+    <div class="card kpi"><div class="kpi-label">GMV / замовлення</div><div class="kpi-value">€12,23</div><div class="kpi-sub up">+3,6%</div></div>
+    <div class="card kpi"><div class="kpi-label">GMV / магазин</div><div class="kpi-value">€320</div><div class="kpi-sub up">+1,7%</div></div>
+  </div>
+  <div class="grid-4">
+    <div class="card kpi"><div class="kpi-label">Ціна позиції в кошику</div><div class="kpi-value">€1,21</div><div class="kpi-sub up">+14,7%</div></div>
+    <div class="card kpi"><div class="kpi-label">Позицій / замовлення</div><div class="kpi-value">8,85</div><div class="kpi-sub down">−9,1%</div></div>
+    <div class="card kpi"><div class="kpi-label">Активні магазини</div><div class="kpi-value">81</div><div class="kpi-sub stable">0%</div></div>
+    <div class="card kpi"><div class="kpi-label">Eater fees / замовл.</div><div class="kpi-value">€1,55</div><div class="kpi-sub neutral">−1,0%</div></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px">
+    <div class="card">
+      <h3>GMV і замовлення по брендах (місяць)</h3>
+      <table>
+        <thead><tr><th>Бренд</th><th class="num">GMV €</th><th class="num">Δ GMV</th><th class="num">Замовл.</th><th class="num">Δ замовл.</th><th class="num">€/замовл.</th></tr></thead>
+        <tbody id="cvpGmvTable"></tbody>
+      </table>
+      <div class="insight" style="margin-top:12px">
+        <div class="insight-text"><b>KOPIYKA</b> зростає (GMV +4,2%, замовлення +3,9%). <b>SANTIM</b> — менше замовлень (−13,5%), але більший чек (€16, +13,1%). <b>MINI</b> стабільний.</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Воронка по брендах (червень)</h3>
+      <div class="chart-box"><canvas id="cvpFunnel"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px">
+    <div class="card">
+      <h3>Воронка: деталі (червень vs травень)</h3>
+      <table>
+        <thead><tr><th>Бренд</th><th class="num">Покази</th><th class="num">Δ</th><th class="num">Перегл. меню</th><th class="num">Engage %</th><th class="num">Abandon %</th><th class="num">Conv %</th></tr></thead>
+        <tbody id="cvpFunnelTable"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Користувачі по брендах (місяць)</h3>
+      <table>
+        <thead><tr><th>Бренд</th><th class="num">Нові</th><th class="num">Δ</th><th class="num">Активні</th><th class="num">Δ</th><th class="num">Частота</th><th class="num">Δ</th></tr></thead>
+        <tbody id="cvpUsersTable"></tbody>
+      </table>
+      <div class="insight good" style="margin-top:12px">
+        <div class="insight-text">Частота зростає у KOPIYKA (+11,6%) і по групі (+4,6%) — лояльність міцніє. SANTIM притягує нових юзерів (+57%).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Якість і доступність (input) по брендах — червень vs травень</h3>
+    <table>
+      <thead><tr>
+        <th>Бренд</th><th class="num">Merchant avail %</th><th class="num">SKU avail %</th><th class="num">Δ SKU ппт</th>
+        <th class="num">Item promo %</th><th class="num">Campaigns %</th><th class="num">Delivery time, хв</th><th class="num">Δ час</th><th class="num">Late %</th><th class="num">Defect %</th><th class="num">Replace %</th>
+      </tr></thead>
+      <tbody id="cvpQualTable"></tbody>
+    </table>
+    <div class="insight warn" style="margin-top:12px">
+      <div class="insight-text"><b>SKU availability знизилась</b> по всіх брендах (KOPIYKA −1,2; SANTIM −3,0; MINI −1,6 ппт). Промо різко зросло у MINI (item promo 2%→26%) і SANTIM (1%→15%) — підтримує замовлення штучно. Час доставки (CVP-визначення, місячний) покращився у KOPIYKA (−31%), але погіршився у SANTIM (+37% до 45 хв).</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: DELIVERY -->
+<div class="section">
+  <h2>3. Avg Delivery Time та Late rate (тижневий зріз)</h2>
   <div class="grid-2">
     <div class="card">
       <h3>По містах і брендах</h3>
@@ -185,9 +259,9 @@ tr:hover{background:#f9fafb}
   </div>
 </div>
 
-<!-- SECTION 3: SKU -->
+<!-- SECTION 4: SKU -->
 <div class="section">
-  <h2>3. SKU-доступність по тижнях</h2>
+  <h2>4. SKU-доступність по тижнях</h2>
   <div class="insight warn">
     <div class="insight-title">Асортимент бренду KOPIYKA — вузький і дуже волатильний</div>
     <div class="insight-text"><b>SANTIM</b> тримає широкий і стабільний каталог (~10 000 SKU), <b>KOPIYKA MINI</b> — стабільні ~3 900. А ось ядро <b>KOPIYKA</b> коливається тижнями від ~1 300 до ~4 600 SKU на магазин (падіння до 1 324 на 11.05) — це ризик доступності й конверсії. Варто з'ясувати причину «пилкоподібної» доступності каталогу.</div>
@@ -225,9 +299,10 @@ tr:hover{background:#f9fafb}
   </div>
 </div>
 
-<!-- SECTION 4: ACTIONS -->
+<!-- SECTION 5: ACTIONS -->
 <div class="section">
-  <h2>4. Що робити</h2>
+  <h2>5. Що робити</h2>
+  <div class="insight action"><div class="insight-title">0. Видимість / трафік</div><div class="insight-text">Покази −15,8% і перегляди меню −14,8% за місяць — головний ризик. Пропрацювати позиціонування/маркетинг, особливо для KOPIYKA MINI (покази −23%).</div></div>
   <div class="insight action"><div class="insight-title">1. Масштабувати KOPIYKA MINI</div><div class="insight-text">Формат MINI — єдиний зі стабільним каталогом і зростанням GMV. Розглянути розширення в Одесі та Миколаєві.</div></div>
   <div class="insight action"><div class="insight-title">2. Стабілізувати каталог KOPIYKA</div><div class="insight-text">Розібрати причину «пилкоподібної» доступності SKU у магазинах бренду KOPIYKA (інтеграція стоків / синхронізація меню) — це прямо впливає на конверсію.</div></div>
   <div class="insight action"><div class="insight-title">3. Late delivery в зонах Одеси</div><div class="insight-text">Пріоритет — Kotovskoho, Panoramna, Buhaivka: розбір доступності кур'єрів і батчингу. Ціль Late &lt; 25%.</div></div>
@@ -235,7 +310,7 @@ tr:hover{background:#f9fafb}
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:11px;margin-top:24px">
-  KOPIYKA Group · Bolt Food UA · Джерела: Entity performance dynamics (PoP), Key Metrics, Basket items, Merchant-level Overview, curated_delivery fact_provider (SKU)
+  KOPIYKA Group · Bolt Food UA · Джерела: Entity performance dynamics (PoP), Key Metrics, Basket items, Merchant-level Overview, curated_delivery fact_provider (SKU), CVP input/output metrics (місячні)
 </div>
 
 </div>
@@ -370,6 +445,62 @@ function renderSku(){
   }).join('');
 }
 renderSku();
+
+// ===== CVP monthly =====
+function dpct(v){const s=v>=0?'up':'down';return `<span class="${s}">${v>=0?'+':''}${v}%</span>`}
+function dppt(v){const s=v>=0?'up':'down';return `<span class="${s}">${v>=0?'+':''}${v}</span>`}
+
+// GMV by brand
+const cvpGmv=[['KOPIYKA',14739,4.2,1299,3.9,11],['SANTIM',6113,-2.2,377,-13.5,16],['KOPIYKA MINI',5067,-0.5,444,-6.1,11]];
+document.getElementById('cvpGmvTable').innerHTML=cvpGmv.map(r=>
+  `<tr><td style="font-weight:600">${r[0]}</td><td class="num">${r[1].toLocaleString('uk')}</td><td class="num">${dpct(r[2])}</td>`+
+  `<td class="num">${r[3].toLocaleString('uk')}</td><td class="num">${dpct(r[4])}</td><td class="num">€${r[5]}</td></tr>`
+).join('')+`<tr style="font-weight:700;border-top:2px solid var(--border)"><td>Разом</td><td class="num">25 919</td><td class="num">${dpct(1.7)}</td><td class="num">2 120</td><td class="num">${dpct(-1.8)}</td><td class="num">€12,23</td></tr>`;
+
+// Funnel chart (impressions -> menu views -> conversion proxy)
+const fb=[['KOPIYKA',74690,4051,30],['SANTIM',24166,1266,28],['KOPIYKA MINI',36199,1549,28]];
+new Chart(document.getElementById('cvpFunnel'),{
+  type:'bar',
+  data:{labels:fb.map(x=>x[0]),datasets:[
+    {label:'Покази',data:fb.map(x=>x[1]),backgroundColor:'#cbd5e1',yAxisID:'y'},
+    {label:'Перегляди меню',data:fb.map(x=>x[2]),backgroundColor:ACCENT,yAxisID:'y1'}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},
+    scales:{y:{position:'left',title:{display:true,text:'Покази'},ticks:{callback:v=>(v/1000)+'k'}},
+      y1:{position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'Перегляди меню'}}}}
+});
+
+// Funnel table
+const ft=[['KOPIYKA',74690,-14.6,4051,48,63,30],['SANTIM',24166,-6.8,1266,44,64,28],['KOPIYKA MINI',36199,-23.0,1549,43,65,28],['Разом',135055,-15.8,6866,46,63,29]];
+document.getElementById('cvpFunnelTable').innerHTML=ft.map((r,i)=>{
+  const bold=i===ft.length-1?' style="font-weight:700;border-top:2px solid var(--border)"':'';
+  return `<tr${bold}><td>${r[0]}</td><td class="num">${r[1].toLocaleString('uk')}</td><td class="num">${dpct(r[2])}</td>`+
+    `<td class="num">${r[3].toLocaleString('uk')}</td><td class="num">${r[4]}%</td><td class="num">${r[5]}%</td><td class="num" style="font-weight:600">${r[6]}%</td></tr>`;
+}).join('');
+
+// Users table
+const ut=[['KOPIYKA',51,-19.0,517,-6.8,2.51,11.6],['SANTIM',11,57.1,160,-15.8,2.36,2.7],['KOPIYKA MINI',22,4.8,223,0.5,1.99,-6.6],['Разом',84,-7.7,753,-6.1,2.82,4.6]];
+document.getElementById('cvpUsersTable').innerHTML=ut.map((r,i)=>{
+  const bold=i===ut.length-1?' style="font-weight:700;border-top:2px solid var(--border)"':'';
+  return `<tr${bold}><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${dpct(r[2])}</td>`+
+    `<td class="num">${r[3]}</td><td class="num">${dpct(r[4])}</td><td class="num">${r[5]}</td><td class="num">${dpct(r[6])}</td></tr>`;
+}).join('');
+
+// Quality table: brand, mAvail, skuAvail, dSku, itemPromo, campaigns, delivery, dDelivery, late, defect, replace
+const qt=[
+  ['KOPIYKA',91,87,-1.2,8,5,34,-31,8,35,30],
+  ['SANTIM',90,84,-3.0,15,8,45,37,7,33,28],
+  ['KOPIYKA MINI',96,86,-1.6,26,11,67,-24,9,30,30]
+];
+document.getElementById('cvpQualTable').innerHTML=qt.map(r=>{
+  const skuCl=r[3]<=-2?'cell-warn':'';
+  const delCl=r[6]>=45?'cell-warn':'';
+  return `<tr><td style="font-weight:600">${r[0]}</td><td class="num">${r[1]}%</td>`+
+    `<td class="num ${skuCl}">${r[2]}%</td><td class="num">${dppt(r[3])}</td>`+
+    `<td class="num">${r[4]}%</td><td class="num">${r[5]}%</td>`+
+    `<td class="num ${delCl}">${r[6]}</td><td class="num">${dpct(r[7])}</td>`+
+    `<td class="num">${r[8]}%</td><td class="num">${r[9]}%</td><td class="num">${r[10]}%</td></tr>`;
+}).join('');
 
 // PDF export
 function downloadPDF(){
