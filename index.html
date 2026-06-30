@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOPIYKA Group — Тижневий розбір Bolt Food</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root{--bg:#F8F9FA;--card:#fff;--border:#e5e7eb;--text:#1A1A2E;--muted:#6b7280;--green:#16a34a;--red:#dc2626;--yellow:#ca8a04;--blue:#2563eb;--purple:#7c3aed;--cyan:#0891b2;--orange:#ea580c;--accent:#E4002B;--accent-dark:#1A1A2E}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,system-ui,sans-serif;line-height:1.65}
+.container{max-width:1240px;margin:0 auto;padding:28px}
+.header{display:flex;align-items:center;gap:20px;margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid var(--border)}
+.logo-dot{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#E4002B,#1A1A2E);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px}
+h1{font-size:24px;font-weight:700;color:var(--accent-dark)}
+.subtitle{color:var(--muted);font-size:13px;margin-top:2px}
+.report-meta{margin-left:auto;text-align:right;color:var(--muted);font-size:12px}
+.btn-pdf{display:inline-flex;align-items:center;gap:7px;background:var(--accent-dark);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .2s;margin-top:8px}
+.btn-pdf:hover{opacity:.85}
+.btn-pdf svg{width:15px;height:15px}
+h2{font-size:18px;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--accent-dark)}
+h3{font-size:14px;font-weight:600;margin-bottom:10px}
+.section{margin-bottom:36px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.kpi{text-align:center;padding:16px 12px}
+.kpi-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;line-height:1.3}
+.kpi-value{font-size:26px;font-weight:700}
+.kpi-sub{font-size:11px;margin-top:4px;font-weight:600}
+.up{color:var(--green)}.down{color:var(--red)}.neutral{color:var(--yellow)}.stable{color:var(--muted)}
+.chart-box{position:relative;height:300px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;padding:8px 10px;border-bottom:2px solid var(--border);color:var(--muted);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid #f3f4f6}
+tr:hover{background:#f9fafb}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:10px;font-weight:700}
+.badge-g{background:#dcfce7;color:#166534}.badge-r{background:#fee2e2;color:#991b1b}.badge-y{background:#fef9c3;color:#854d0e}.badge-b{background:#dbeafe;color:#1e40af}
+.cell-crit{background:#fee2e2!important;color:#991b1b;font-weight:700}
+.cell-warn{background:#fef9c3!important;color:#854d0e;font-weight:600}
+.cell-good{background:#dcfce7!important;color:#166534}
+.insight{border-left:3px solid var(--blue);background:#eff6ff;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:10px;font-size:13px}
+.insight.warn{border-color:var(--orange);background:#fff7ed}
+.insight.good{border-color:var(--green);background:#f0fdf4}
+.insight.action{border-color:var(--purple);background:#f5f3ff}
+.insight.crit{border-color:var(--red);background:#fef2f2}
+.insight-title{font-weight:700;margin-bottom:3px}
+.insight-text{color:#374151;font-size:12.5px}
+.divider{height:1px;background:var(--border);margin:28px 0}
+.store-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.store-name{font-size:11px;min-width:210px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-bg{flex:1;height:20px;background:#f3f4f6;border-radius:3px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;font-weight:600;color:#fff;min-width:24px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+@media print{body{background:#fff}.card{box-shadow:none}.btn-pdf{display:none}}
+</style>
+</head>
+<body>
+<div class="container" id="report">
+
+<div class="header">
+  <div class="logo-dot">K</div>
+  <div>
+    <h1>KOPIYKA Group — Тижневий розбір</h1>
+    <div class="subtitle">Bolt Food UA · Бренди KOPIYKA / KOPIYKA MINI / SANTIM · Динаміка, час доставки та SKU-доступність</div>
+  </div>
+  <div class="report-meta">
+    Дані: 20.04 – 22.06.2026<br>
+    Сформовано: 30.06.2026
+    <br>
+    <button class="btn-pdf" onclick="downloadPDF()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+      Завантажити PDF
+    </button>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<div class="section">
+  <div class="insight good">
+    <div class="insight-title">Головний висновок: група стабільна, орієнтир росту — KOPIYKA MINI</div>
+    <div class="insight-text">GMV групи тримається ~€6,5 тис/тиждень, тиждень 22.06 (€6 486) майже на рівні 15.06 (−1,6%), при цьому <b>замовлення навіть зросли (+0,7%)</b>, а активації нових юзерів подвоїлись (+94%, переважно Миколаїв). Драйвер — <b>KOPIYKA MINI (+29% за тиждень)</b>. Точки уваги: failed order rate зріс до 7,9% і Late delivery в окремих зонах Одеси.</div>
+  </div>
+</div>
+
+<!-- KPI -->
+<div class="section">
+  <h2>Ключові показники тижня (22.06 vs 15.06)</h2>
+  <div class="grid-4">
+    <div class="card kpi"><div class="kpi-label">GMV групи</div><div class="kpi-value">€6 486</div><div class="kpi-sub neutral">−1,6%</div></div>
+    <div class="card kpi"><div class="kpi-label">Замовлення</div><div class="kpi-value">539</div><div class="kpi-sub up">+0,7%</div></div>
+    <div class="card kpi"><div class="kpi-label">Активації нових юзерів</div><div class="kpi-value">33</div><div class="kpi-sub up">+94%</div></div>
+    <div class="card kpi"><div class="kpi-label">Failed order rate</div><div class="kpi-value">7,9%</div><div class="kpi-sub down">+2,6 ппт</div></div>
+  </div>
+</div>
+
+<!-- SECTION 1: PERFORMANCE & BRANDS -->
+<div class="section">
+  <h2>1. Динаміка по брендах і містах</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>GMV по брендах, по тижнях (€)</h3>
+      <div class="chart-box"><canvas id="chartBrand"></canvas></div>
+      <div class="insight good" style="margin-top:14px">
+        <div class="insight-text"><b>KOPIYKA MINI</b> — єдиний бренд із чітким зростанням на 22.06 (€1 094 → €1 416, +29%). Ядро <b>KOPIYKA</b> відкотилось із піку 15.06 (€4 040 → €3 704), <b>SANTIM</b> плавно знижується.</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>GMV по містах, по тижнях (€)</h3>
+      <div class="chart-box"><canvas id="chartCity"></canvas></div>
+      <div class="insight" style="margin-top:14px">
+        <div class="insight-text">Одеса дає <b>96% GMV</b> групи і тримається стабільно. <b>Миколаїв</b> — новий ринок: малий, але впевнено росте (€159 → €249, +57%) на тлі активацій нових юзерів.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="grid-2">
+    <div class="card">
+      <h3>Топ магазинів за падінням 15.06 → 22.06 (€)</h3>
+      <div id="dropBars"></div>
+    </div>
+    <div class="card">
+      <h3>Топ магазинів за зростанням 15.06 → 22.06 (€)</h3>
+      <div id="gainBars"></div>
+      <div class="insight good" style="margin-top:12px">
+        <div class="insight-text">Зростання тягнуть переважно точки <b>KOPIYKA MINI</b> та новий Миколаїв — підтверджує ставку на формат MINI.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: DELIVERY -->
+<div class="section">
+  <h2>2. Avg Delivery Time та Late rate</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>По містах і брендах</h3>
+      <table>
+        <thead><tr><th>Розріз</th><th class="num">Замовл.</th><th class="num">Avg, хв</th><th class="num">Late %</th><th class="num">Доставл. %</th><th>Статус</th></tr></thead>
+        <tbody id="dlSummary"></tbody>
+      </table>
+      <div class="legend">
+        <span><span class="dot" style="background:#dc2626"></span>Критично: час ≥ 40 хв або Late ≥ 28%</span>
+        <span><span class="dot" style="background:#ca8a04"></span>Увага: 35–40 хв або Late 22–28%</span>
+        <span><span class="dot" style="background:#16a34a"></span>ОК</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Зони Одеси — Late delivery rate, %</h3>
+      <div class="chart-box"><canvas id="chartZone"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px">
+    <div class="card">
+      <h3>Деталі по зонах Одеси</h3>
+      <table>
+        <thead><tr><th>Зона</th><th class="num">Магаз.</th><th class="num">Замовл.</th><th class="num">Avg, хв</th><th class="num">Late %</th><th>Статус</th></tr></thead>
+        <tbody id="zoneTable"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Де критично</h3>
+      <div class="insight crit">
+        <div class="insight-title">🔴 Late delivery в зонах Одеси</div>
+        <div class="insight-text">Kotovskoho <b>35,3%</b>, Panoramna <b>30,3%</b>, Buhaivka <b>30,1%</b> — кожне 3-тє замовлення спізнюється 10+ хв, хоча середній час помірний. Проблема в підборі/доступності кур'єрів, не в приготуванні.</div>
+      </div>
+      <div class="insight warn">
+        <div class="insight-title">🟡 Миколаїв — довга доставка</div>
+        <div class="insight-text">Avg <b>39,8 хв</b> (на 8 хв довше за Одесу), але Late лише 16,5%. Типово для нового ринку з ширшими зонами — тримати під контролем у міру росту.</div>
+      </div>
+      <div class="insight warn">
+        <div class="insight-title">🟡 Failed order rate ↑</div>
+        <div class="insight-text">По групі зріс 5,3% → <b>7,9%</b> на 22.06. Перевірити причини відмов (наявність товару, скасування магазином).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: SKU -->
+<div class="section">
+  <h2>3. SKU-доступність по тижнях</h2>
+  <div class="insight warn">
+    <div class="insight-title">Асортимент бренду KOPIYKA — вузький і дуже волатильний</div>
+    <div class="insight-text"><b>SANTIM</b> тримає широкий і стабільний каталог (~10 000 SKU), <b>KOPIYKA MINI</b> — стабільні ~3 900. А ось ядро <b>KOPIYKA</b> коливається тижнями від ~1 300 до ~4 600 SKU на магазин (падіння до 1 324 на 11.05) — це ризик доступності й конверсії. Варто з'ясувати причину «пилкоподібної» доступності каталогу.</div>
+  </div>
+  <div class="grid-2" style="margin-top:6px">
+    <div class="card">
+      <h3>Середня доступність SKU на магазин по брендах, по тижнях</h3>
+      <div class="chart-box"><canvas id="chartSkuBrand"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Резюме по брендах</h3>
+      <table>
+        <thead><tr><th>Бренд</th><th class="num">Магаз.</th><th class="num">Мін</th><th class="num">Макс</th><th class="num">Розкид</th></tr></thead>
+        <tbody id="skuBrandTable"></tbody>
+      </table>
+      <div class="insight" style="margin-top:12px">
+        <div class="insight-text">Стабільність каталогу: SANTIM &gt; KOPIYKA MINI &gt;&gt; KOPIYKA. Велика амплітуда у KOPIYKA — пріоритет на стабілізацію наявності.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+      <h3 style="margin:0">Median Available SKU по магазинах та тижнях</h3>
+      <input id="skuSearch" placeholder="Пошук магазину…" style="margin-left:auto;padding:7px 12px;font-size:12px;border:1px solid var(--border);border-radius:6px;outline:none;min-width:170px" oninput="renderSku()">
+      <select id="skuBrandFilter" style="padding:7px 10px;font-size:12px;border:1px solid var(--border);border-radius:6px;cursor:pointer" onchange="renderSku()"></select>
+    </div>
+    <div style="max-height:520px;overflow:auto;border:1px solid var(--border);border-radius:8px">
+      <table>
+        <thead style="position:sticky;top:0;background:var(--card);z-index:1"><tr id="skuHead"></tr></thead>
+        <tbody id="skuTable"></tbody>
+      </table>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px">Δ% = 22.06 vs 20.04. Зелене — найвища, помаранчеве — найнижча доступність SKU магазину за період. «—» = немає даних за тиждень.</div>
+  </div>
+</div>
+
+<!-- SECTION 4: ACTIONS -->
+<div class="section">
+  <h2>4. Що робити</h2>
+  <div class="insight action"><div class="insight-title">1. Масштабувати KOPIYKA MINI</div><div class="insight-text">Формат MINI — єдиний зі стабільним каталогом і зростанням GMV. Розглянути розширення в Одесі та Миколаєві.</div></div>
+  <div class="insight action"><div class="insight-title">2. Стабілізувати каталог KOPIYKA</div><div class="insight-text">Розібрати причину «пилкоподібної» доступності SKU у магазинах бренду KOPIYKA (інтеграція стоків / синхронізація меню) — це прямо впливає на конверсію.</div></div>
+  <div class="insight action"><div class="insight-title">3. Late delivery в зонах Одеси</div><div class="insight-text">Пріоритет — Kotovskoho, Panoramna, Buhaivka: розбір доступності кур'єрів і батчингу. Ціль Late &lt; 25%.</div></div>
+  <div class="insight action"><div class="insight-title">4. Failed order rate 7,9%</div><div class="insight-text">Перевірити сплеск відмов на 22.06 — наявність товару та скасування магазином.</div></div>
+</div>
+
+<div style="text-align:center;color:var(--muted);font-size:11px;margin-top:24px">
+  KOPIYKA Group · Bolt Food UA · Джерела: Entity performance dynamics (PoP), Key Metrics, Basket items, Merchant-level Overview, curated_delivery fact_provider (SKU)
+</div>
+
+</div>
+
+<script>
+const GREEN='#16a34a',RED='#dc2626',DARK='#1A1A2E',BLUE='#2563eb',ORANGE='#ea580c',YELLOW='#ca8a04',ACCENT='#E4002B';
+const weeks=['20.04','27.04','04.05','11.05','18.05','25.05','01.06','08.06','15.06','22.06'];
+
+// Brand GMV
+new Chart(document.getElementById('chartBrand'),{
+  type:'line',
+  data:{labels:weeks,datasets:[
+    {label:'KOPIYKA',data:[3394,3707,3520,2963,2799,3215,3394,3209,4040,3704],borderColor:ACCENT,borderWidth:2.5,tension:.3,pointRadius:2},
+    {label:'SANTIM',data:[1587,1307,1261,1526,1609,1320,1543,1519,1459,1366],borderColor:BLUE,borderWidth:2,tension:.3,pointRadius:2},
+    {label:'KOPIYKA MINI',data:[1015,1220,1094,1176,1139,1146,1217,1150,1094,1416],borderColor:GREEN,borderWidth:2,tension:.3,pointRadius:2}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},scales:{y:{ticks:{callback:v=>'€'+(v/1000)+'k'}}}}
+});
+
+// City GMV
+new Chart(document.getElementById('chartCity'),{
+  type:'line',
+  data:{labels:weeks,datasets:[
+    {label:'Одеса',data:[5895,6182,5852,5579,5440,5489,6043,5700,6434,6237],borderColor:ACCENT,backgroundColor:'rgba(228,0,43,.06)',borderWidth:2.5,tension:.3,fill:true,pointRadius:2},
+    {label:'Миколаїв',data:[101,52,23,86,107,191,110,178,159,249],borderColor:BLUE,borderWidth:2,tension:.3,pointRadius:2,yAxisID:'y1'}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},
+    scales:{y:{position:'left',ticks:{callback:v=>'€'+(v/1000)+'k'},title:{display:true,text:'Одеса'}},
+      y1:{position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'Миколаїв'}}}}
+});
+
+// Store movers
+const drops=[['SANTIM Сабанський пров., 3',714,542],['Михайлівська, 8',162,58],['Асташкіна, 29',151,58],['Пішонівська, 26/2',148,55],['Mini Євгена Танцюри, 11',210,122],['Ак. Філатова, 29',147,61],['Академіка Філатова, 54',146,62],['Гагарінське плато, 5А',96,18]];
+const gains=[['Фонтанська дорога, 118',72,230],['Mini Люстдорфська дор.',95,215],['Mini Академічна, 11',24,122],['Mini просп. Миру, 17Г (Микол.)',159,249],['Mini О. Вадатурського, 18',51,136],['Успенська, 28',278,355]];
+function bars(el,data,color,sign){
+  const mx=Math.max(...data.map(s=>Math.abs(s[2]-s[1])));
+  document.getElementById(el).innerHTML=data.map(s=>{
+    const d=s[2]-s[1];const w=Math.round(Math.abs(d)/mx*100);
+    return `<div class="store-row"><div class="store-name" title="${s[0]}">${s[0]}</div>`+
+      `<div class="bar-bg"><div class="bar-fill" style="width:${w}%;background:${color}">${sign}€${Math.abs(d)}</div></div>`+
+      `<div style="font-size:10px;color:var(--muted);min-width:78px;text-align:right">€${s[1]}→€${s[2]}</div></div>`;
+  }).join('');
+}
+bars('dropBars',drops,RED,'−');
+bars('gainBars',gains,GREEN,'+');
+
+// Delivery summary (city + brand)
+const dl=[
+  ['Миколаїв (місто)',113,39.8,16.5,97.5],
+  ['Одеса (місто)',4858,32.2,25.2,94.8],
+  ['SANTIM',936,34.0,23.0,95.2],
+  ['KOPIYKA',2986,32.6,25.9,95.0],
+  ['KOPIYKA MINI',1049,30.3,24.2,94.4]
+];
+function durCls(v){return v>=40?'cell-crit':(v>=35?'cell-warn':'cell-good')}
+function lateCls(v){return v>=28?'cell-crit':(v>=22?'cell-warn':'cell-good')}
+function statusBadge(dur,late){
+  if(dur>=40||late>=28)return '<span class="badge badge-r">Критично</span>';
+  if(dur>=35||late>=22)return '<span class="badge badge-y">Увага</span>';
+  return '<span class="badge badge-g">ОК</span>';
+}
+document.getElementById('dlSummary').innerHTML=dl.map(d=>
+  `<tr><td style="font-weight:600">${d[0]}</td><td class="num">${d[1].toLocaleString('uk')}</td>`+
+  `<td class="num ${durCls(d[2])}">${d[2].toFixed(1)}</td><td class="num ${lateCls(d[3])}">${d[3].toFixed(1)}</td>`+
+  `<td class="num">${d[4].toFixed(1)}</td><td>${statusBadge(d[2],d[3])}</td></tr>`).join('');
+
+// Zones
+const zones=[
+  ['Kotovskoho',13,184,32.3,35.3],['Panoramna',16,736,34.5,30.3],['Buhaivka',2,63,33.2,30.1],
+  ['Prymorskyi',12,1429,32.8,24.9],['Arkadia',9,697,35.0,24.8],['Velykyi Fontan',5,525,28.6,23.1],
+  ['Malynovskyi',13,751,29.1,22.2],['Moldavanka',7,472,31.5,21.3]
+];
+document.getElementById('zoneTable').innerHTML=zones.map(z=>
+  `<tr><td style="font-weight:600">${z[0]}</td><td class="num">${z[1]}</td><td class="num">${z[2].toLocaleString('uk')}</td>`+
+  `<td class="num ${durCls(z[3])}">${z[3].toFixed(1)}</td><td class="num ${lateCls(z[4])}">${z[4].toFixed(1)}</td>`+
+  `<td>${statusBadge(z[3],z[4])}</td></tr>`).join('');
+new Chart(document.getElementById('chartZone'),{
+  type:'bar',
+  data:{labels:zones.map(z=>z[0]),datasets:[{label:'Late %',data:zones.map(z=>z[4]),
+    backgroundColor:zones.map(z=>z[4]>=28?RED:(z[4]>=22?YELLOW:GREEN))}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{title:{display:true,text:'Late delivery, %'},grid:{color:'#f3f4f6'}}}}
+});
+
+// SKU by brand
+new Chart(document.getElementById('chartSkuBrand'),{
+  type:'line',
+  data:{labels:weeks,datasets:[
+    {label:'SANTIM',data:[10131,10198,10154,10170,10183,10187,10121,10069,10080,10025],borderColor:BLUE,borderWidth:2,tension:.3,pointRadius:2},
+    {label:'KOPIYKA MINI',data:[3952,3878,3880,3876,3886,3893,3902,3896,3895,3885],borderColor:GREEN,borderWidth:2,tension:.3,pointRadius:2},
+    {label:'KOPIYKA',data:[3820,4333,3063,1324,3955,4615,3772,4327,4447,3964],borderColor:ACCENT,borderWidth:2.5,tension:.2,pointRadius:2}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},scales:{y:{ticks:{callback:v=>(v/1000)+'k'}}}}
+});
+
+// per-store SKU
+const skuData=[{"n": "SANTIM вул. Валерія Самофалова, 16", "c": "Odesa", "b": "SANTIM", "v": [10129, 10290, 10207, 10222, 10255, 10265, 10213, 10191, 10203, 10141]}, {"n": "SANTIM вул. Лігінська, 2А", "c": "Odesa", "b": "SANTIM", "v": [10262, 10314, 10258, 10267, 10267, 10267, 10214, 10226, 10231, 10127]}, {"n": "SANTIM Сабанський провулок, 3", "c": "Odesa", "b": "SANTIM", "v": [10003, 9990, 9996, 10021, 10028, 10028, 9935, 9791, 9805, 9807]}, {"n": "просп. Небесної Сотні, 65А", "c": "Odesa", "b": "KOPIYKA", "v": [7438, 4965, 7326, 2270, 6767, 3212, 8205, 4976, 3907, 7527]}, {"n": "вул. Михайла Грушевського, 39/4", "c": "Odesa", "b": "KOPIYKA", "v": [7093, 4732, 7076, 2270, 6404, 3140, 7778, 4744, 3697, 7247]}, {"n": "вул. Центральна, 1-Б", "c": "Odesa", "b": "KOPIYKA", "v": [null, 4718, 6608, 2243, 6219, 2950, 7364, 4458, 3618, 6745]}, {"n": "вул. Варненська, 29", "c": "Odesa", "b": "KOPIYKA", "v": [6017, 3902, 5946, 1866, 5309, 2610, 6615, 4042, 3166, 6151]}, {"n": "вул. Сім’ї Глодан, 51", "c": "Odesa", "b": "KOPIYKA", "v": [5962, 4019, 5929, 1902, 5542, 2586, 6656, 4004, 3179, 6089]}, {"n": "вул. Академіка Заболотного, 24", "c": "Odesa", "b": "KOPIYKA", "v": [5965, 4031, 5909, 1989, 5273, 2584, 6520, 3983, 3246, 6015]}, {"n": "вул. Троїцька, 54", "c": "Odesa", "b": "KOPIYKA", "v": [5879, 3946, 5800, 1851, 5223, 2506, 6406, 3928, 3169, 6000]}, {"n": "вул. Долинська, 33", "c": "Odesa", "b": "KOPIYKA", "v": [5661, 3790, 7021, 7668, 5115, 2415, 6259, 3793, 3047, 5903]}, {"n": "вул. Михайлівська, 8", "c": "Odesa", "b": "KOPIYKA", "v": [5683, 3663, 5561, 1779, 5032, 2450, 6100, 3786, 2973, 5631]}, {"n": "вул. Космонавтів, 152", "c": "Odesa", "b": "KOPIYKA", "v": [5561, 3704, 5485, 1802, 4906, 2377, 6075, 3665, 2965, 5586]}, {"n": "Райдужний масив, 24", "c": "Odesa", "b": "KOPIYKA", "v": [3153, 5402, 1635, 997, 3696, 6941, 2513, 5367, 6283, 5571]}, {"n": "вул. Мечникова, 55Б", "c": "Odesa", "b": "KOPIYKA", "v": [5443, 3623, 5334, 1727, 4994, 2317, 5931, 3563, 2829, 5543]}, {"n": "Люстдорфська дорога, 55", "c": "Odesa", "b": "KOPIYKA", "v": [null, null, null, null, null, null, null, null, 2135, 5495]}, {"n": "просп. Небесної Сотні, 53", "c": "Odesa", "b": "KOPIYKA", "v": [5424, 3562, 5421, 1729, 4704, 2331, 5843, 3528, 2879, 5476]}, {"n": "вул. Бреуса, 26", "c": "Odesa", "b": "KOPIYKA", "v": [5268, 3545, 5195, 1734, 4778, 2311, 5749, 3565, 2881, 5472]}, {"n": "вул. Успенська, 28", "c": "Odesa", "b": "KOPIYKA", "v": [5494, 3575, 5346, 1708, 4823, 2363, 5906, 3594, 2796, 5442]}, {"n": "вул. Жоліо-Кюрі, 26", "c": "Odesa", "b": "KOPIYKA", "v": [5146, 3394, 5068, 1624, 4468, 2213, 5619, 3421, 2701, 5245]}, {"n": "Фонтанська дорога, 118", "c": "Odesa", "b": "KOPIYKA", "v": [5141, 3289, 5019, 1668, 4449, 2242, 5564, 3472, 2740, 5172]}, {"n": "вул. Іцхака Рабіна, 37", "c": "Odesa", "b": "KOPIYKA", "v": [5062, 3303, 5019, 1603, 4542, 2211, 5565, 3357, 2770, 5103]}, {"n": "Mini просп. Небесної Сотні, 83", "c": "Odesa", "b": "KOPIYKA MINI", "v": [4940, 4918, 4890, 4888, 4891, 4894, 4942, 4942, 4910, 4929]}, {"n": "просп. Князя Володимира Великого, 84А", "c": "Odesa", "b": "KOPIYKA", "v": [4871, 3253, 4808, 1595, 4320, 2121, 5308, 3207, 2540, 4905]}, {"n": "вул. Львівська, 15Б", "c": "Odesa", "b": "KOPIYKA", "v": [4842, 3198, 4763, 1561, 4246, 2076, 5326, 3215, 2561, 4862]}, {"n": "Mini вул. Євгена Чикаленка, 43", "c": "Odesa", "b": "KOPIYKA MINI", "v": [4903, 4887, 4852, 4819, 4886, 4888, 4907, 4902, 4903, 4861]}, {"n": "вул. Перлинна, 3А", "c": "Odesa", "b": "KOPIYKA", "v": [4859, 3198, 4751, 1568, 4333, 2139, 5243, 3120, 2488, 4844]}, {"n": "вул. Тіниста, 13", "c": "Odesa", "b": "KOPIYKA", "v": [4887, 3131, 4658, 1501, 4243, 2096, 5142, 3101, 2478, 4811]}, {"n": "Mini просп. Миру, 17Г", "c": "Mykolaiv", "b": "KOPIYKA MINI", "v": [4549, 4554, 4547, 4549, 4587, 4589, 4617, 4620, 4657, 4677]}, {"n": "Mini вул. Івана Франка, 55", "c": "Odesa", "b": "KOPIYKA MINI", "v": [4508, 4534, 4527, 4527, 4459, 4482, 4502, 4487, 4481, 4508]}, {"n": "вул. Чорноморського Козацтва, 1А", "c": "Odesa", "b": "KOPIYKA", "v": [4481, 2882, 4404, 1477, 3968, 1928, 4864, 2966, 2429, 4472]}, {"n": "Mini вул. Люстдорфська дорога, 125", "c": "Odesa", "b": "KOPIYKA MINI", "v": [4359, 4317, 4291, 4291, 4334, 4334, 4295, 4308, 4311, 4309]}, {"n": "просп. Князя Ярослава Мудрого, 11", "c": "Odesa", "b": "KOPIYKA", "v": [4236, 2823, 4145, 1354, 3687, 1835, 4623, 2791, 2204, 4292]}, {"n": "Mini Райдужний масив, 10", "c": "Odesa", "b": "KOPIYKA MINI", "v": [4251, 4255, 4265, 4232, 4278, 4279, 4342, 4307, 4297, 4292]}, {"n": "Mini вул. Євгена Танцюри, 11", "c": "Odesa", "b": "KOPIYKA MINI", "v": [4206, 4248, 4285, 4285, 4300, 4300, 4302, 4317, 4313, 4264]}, {"n": "Mini Райдужний масив, 22", "c": "Odesa", "b": "KOPIYKA MINI", "v": [4117, 4122, 4089, 4089, 4139, 4150, 4188, 4152, 4161, 4148]}, {"n": "Mini Фонтанська дорога, 16/8", "c": "Odesa", "b": "KOPIYKA MINI", "v": [4143, 4126, 4155, 4158, 4168, 4168, 4100, 4126, 4126, 4126]}, {"n": "вул. Євгена Чикаленка, 54", "c": "Odesa", "b": "KOPIYKA", "v": [3940, 2546, 3808, 1258, 3447, 1711, 4251, 2573, 2070, 3901]}, {"n": "Mini вул. О. Вадатурського, 18А", "c": "Odesa", "b": "KOPIYKA MINI", "v": [3888, 3902, 3948, 3948, 3913, 3922, 3921, 3924, 3886, 3869]}, {"n": "Mini Райдужний масив, 16", "c": "Odesa", "b": "KOPIYKA MINI", "v": [3767, 3771, 3743, 3743, 3785, 3785, 3795, 3805, 3812, 3792]}, {"n": "Mini вул. Георгія Липського, 28А", "c": "Odesa", "b": "KOPIYKA MINI", "v": [3642, 3605, 3620, 3620, 3663, 3667, 3683, 3649, 3654, 3639]}, {"n": "Mini вул. Преображенська, 66", "c": "Odesa", "b": "KOPIYKA MINI", "v": [3552, 3500, 3540, 3540, 3557, 3557, 3532, 3553, 3542, 3521]}, {"n": "вул. Семена Палія, 86", "c": "Odesa", "b": "KOPIYKA", "v": [3629, 6086, 1915, 1097, 4282, 7809, 2856, 6022, 6977, 3448]}, {"n": "вул. Генерала Бочарова, 50", "c": "Odesa", "b": "KOPIYKA", "v": [3477, 5850, 1830, 1026, 4056, 7556, 2798, 5880, 6888, 3445]}, {"n": "Mini пров. Футуристів, 10", "c": "Odesa", "b": "KOPIYKA MINI", "v": [3456, 3438, 3453, 3457, 3419, 3439, 3449, 3440, 3468, 3431]}, {"n": "вул. Сегедська, 7", "c": "Odesa", "b": "KOPIYKA", "v": [3515, 5966, 1811, 1076, 4075, 7486, 2756, 5922, 6979, 3415]}, {"n": "вул. Добровольців, 3Б", "c": "Odesa", "b": "KOPIYKA", "v": [3416, 5899, 1746, 1030, 3957, 7407, 2692, 5804, 6807, 3397]}, {"n": "просп. Князя Володимира Великого, 130", "c": "Odesa", "b": "KOPIYKA", "v": [3447, 5815, 1798, 1042, 4007, 7465, 2787, 5872, 6817, 3367]}, {"n": "вул. Варненська, 16", "c": "Odesa", "b": "KOPIYKA", "v": [3548, 5991, 1856, 1084, 4241, 7750, 2816, 5999, 7047, 3357]}, {"n": "вул. Асташкіна, 29", "c": "Odesa", "b": "KOPIYKA", "v": [3366, 5723, 1779, 1045, 3972, 7493, 2749, 5836, 6814, 3352]}, {"n": "Mini вул. Академічна, 11", "c": "Odesa", "b": "KOPIYKA MINI", "v": [3455, 3406, 3387, 3386, 3291, 3325, 3406, 3364, 3374, 3346]}, {"n": "Mini вул. Базарна, 1А", "c": "Odesa", "b": "KOPIYKA MINI", "v": [3308, 3292, 3323, 3328, 3347, 3347, 3288, 3289, 3282, 3292]}, {"n": "вул. Вадатурського, 51", "c": "Odesa", "b": "KOPIYKA", "v": [3259, 5582, 1733, 1011, 3864, 7199, 2687, 5604, 6519, 3264]}, {"n": "вул. Італійська, 72", "c": "Odesa", "b": "KOPIYKA", "v": [3171, 5385, 1672, 961, 3827, 6911, 2591, 5400, 6255, 3189]}, {"n": "вул. Старосінна, 1А", "c": "Odesa", "b": "KOPIYKA", "v": [3102, 5345, 1668, 984, 3652, 6885, 2566, 5415, 6232, 3171]}, {"n": "просп. Князя Ярослава Мудрого, 26", "c": "Odesa", "b": "KOPIYKA", "v": [3251, 5524, 1712, 971, 3937, 7166, 2661, 5547, 6435, 3163]}, {"n": "вул. Марсельська, 35Б", "c": "Odesa", "b": "KOPIYKA", "v": [3188, 5501, 1726, 973, 3790, 7064, 2551, 5491, 6394, 3127]}, {"n": "вул. Ак. Сахарова, 1А", "c": "Odesa", "b": "KOPIYKA", "v": [3097, 5323, 1672, 936, 3698, 6858, 2542, 5378, 6244, 3104]}, {"n": "вул. Генуезька, 1E", "c": "Odesa", "b": "KOPIYKA", "v": [3156, 5358, 1660, 972, 3650, 6899, 2602, 5391, 6202, 3101]}, {"n": "просп. Князя Володимира Великого, 71", "c": "Odesa", "b": "KOPIYKA", "v": [3173, 5273, 1710, 966, 3731, 6742, 2497, 5298, 6084, 3071]}, {"n": "просп. Князя Володимира Великого, 70б", "c": "Odesa", "b": "KOPIYKA", "v": [3123, 5223, 1661, 955, 3728, 6765, 2523, 5292, 6118, 3070]}, {"n": "О. Вадатурського, 27а", "c": "Odesa", "b": "KOPIYKA", "v": [3023, 5177, 1584, 934, 3516, 6586, 2424, 5057, 5950, 2971]}, {"n": "вул. Сім’ї Глодан, 39", "c": "Odesa", "b": "KOPIYKA", "v": [2963, 5205, 1558, 947, 3559, 6563, 2379, 5063, 5941, 2954]}, {"n": "Mini просп. Небесної Сотні, 8", "c": "Odesa", "b": "KOPIYKA MINI", "v": [2844, 2846, 2838, 2827, 2894, 2894, 2934, 2916, 2886, 2874]}, {"n": "вул. Святослава Ріхтера, 2", "c": "Odesa", "b": "KOPIYKA", "v": [2856, 4947, 1530, 1185, 3463, 6410, 2397, 4907, 5778, 2818]}, {"n": "вул. Ак. Філатова, 29", "c": "Odesa", "b": "KOPIYKA", "v": [2735, 4623, 1439, 871, 3196, 5891, 2220, 4646, 5328, 2808]}, {"n": "Фонтанська дорога, 67А", "c": "Odesa", "b": "KOPIYKA", "v": [2727, 4672, 1456, 885, 3251, 6151, 2295, 4697, 5419, 2668]}, {"n": "просп. Князя Володимира Великого, 147/1", "c": "Odesa", "b": "KOPIYKA", "v": [2682, 4571, 1418, 824, 3294, 5753, 2172, 4509, 5146, 2659]}, {"n": "вул. Пішонівська, 26/2", "c": "Odesa", "b": "KOPIYKA", "v": [2653, 4600, 1414, 827, 3190, 5812, 2114, 4468, 5263, 2640]}, {"n": "вул. Літературна, 10А", "c": "Odesa", "b": "KOPIYKA", "v": [2511, 4152, 1321, 770, 2925, 5339, 2076, 4260, 4864, 2516]}, {"n": "вул. Старопортофранківська, 22", "c": "Odesa", "b": "KOPIYKA", "v": [2167, 3887, 1143, 689, 2698, 4908, 1811, 3770, 4428, 2288]}, {"n": "просп. Князя Володимира Великого, 103", "c": "Odesa", "b": "KOPIYKA", "v": [2116, 3771, 1132, 665, 2629, 4820, 1813, 3795, 4314, 2213]}, {"n": "вул. Євгена Танцюри, 74", "c": "Odesa", "b": "KOPIYKA", "v": [2110, 3750, 1142, 721, 2612, 4752, 1771, 3771, 4319, 2179]}, {"n": "вул. Канатна, 122Б", "c": "Odesa", "b": "KOPIYKA", "v": [2013, 3539, 1075, 657, 2458, 4415, 1633, 3538, 4056, 2106]}, {"n": "вул. Паустовського, 316", "c": "Odesa", "b": "KOPIYKA", "v": [2158, 3758, 1159, 677, 2664, 4807, 1769, 3764, 4346, 2102]}, {"n": "вул. Іцхака Рабіна, 14", "c": "Odesa", "b": "KOPIYKA", "v": [2087, 3667, 1082, 678, 2575, 4670, 1716, 3696, 4300, 2061]}, {"n": "Mini вул. Європейська, 48", "c": "Odesa", "b": "KOPIYKA MINI", "v": [2060, 2082, 2080, 2080, 2046, 2047, 2028, 2034, 2043, 2053]}, {"n": "Гагарінське плато, 5А", "c": "Odesa", "b": "KOPIYKA", "v": [2016, 3603, 1081, 671, 2591, 4509, 1629, 3612, 4120, 1999]}, {"n": "вул. Академіка Філатова, 54", "c": "Odesa", "b": "KOPIYKA", "v": [1912, 3353, 980, 599, 2298, 4187, 1517, 3371, 3832, 1917]}, {"n": "вул. М’ясоїдівська, 39", "c": "Odesa", "b": "KOPIYKA", "v": [1675, 2994, 905, 544, 2023, 3706, 1308, 2944, 3311, 1718]}, {"n": "вул. Люстдорфська дор., 146/1", "c": "Odesa", "b": "KOPIYKA", "v": [1710, 2936, 933, 555, 2129, 3865, 1397, 3070, 3563, 1707]}, {"n": "Mini вул. Слобідська, 6", "c": "Mykolaiv", "b": "KOPIYKA MINI", "v": [5133, null, null, null, null, null, null, null, null, null]}, {"n": "вул. Паркова, 77", "c": "Odesa", "b": "KOPIYKA", "v": [2865, 4714, 1451, 877, 3266, null, null, null, null, null]}];
+const brands=[...new Set(skuData.map(s=>s.b))].sort();
+document.getElementById('skuBrandFilter').innerHTML='<option value="">Всі бренди</option>'+brands.map(b=>`<option>${b}</option>`).join('');
+document.getElementById('skuHead').innerHTML='<th>Магазин</th><th>Бренд</th><th>Місто</th>'+weeks.map(w=>`<th class="num">${w}</th>`).join('')+'<th class="num">Δ%</th>';
+
+// brand summary table (min/max/spread of per-store medians latest week range)
+const brandStats={};
+skuData.forEach(s=>{
+  const valid=s.v.filter(x=>x!=null);if(!valid.length)return;
+  if(!brandStats[s.b])brandStats[s.b]={n:0,min:1e9,max:0};
+  const last=valid[valid.length-1];
+  brandStats[s.b].n++;brandStats[s.b].min=Math.min(brandStats[s.b].min,Math.min(...valid));brandStats[s.b].max=Math.max(brandStats[s.b].max,Math.max(...valid));
+});
+document.getElementById('skuBrandTable').innerHTML=Object.keys(brandStats).map(b=>{
+  const x=brandStats[b];const spread=x.max-x.min;
+  return `<tr><td style="font-weight:600">${b}</td><td class="num">${x.n}</td><td class="num">${x.min.toLocaleString('uk')}</td><td class="num">${x.max.toLocaleString('uk')}</td><td class="num">${spread.toLocaleString('uk')}</td></tr>`;
+}).join('');
+
+function renderSku(){
+  const q=document.getElementById('skuSearch').value.toLowerCase();
+  const bf=document.getElementById('skuBrandFilter').value;
+  document.getElementById('skuTable').innerHTML=skuData.filter(s=>
+    (!q||s.n.toLowerCase().includes(q))&&(!bf||s.b===bf)
+  ).map(s=>{
+    const valid=s.v.filter(x=>x!=null);const mx=Math.max(...valid),mn=Math.min(...valid);
+    const first=valid[0],last=valid[valid.length-1];
+    const d=first?(last-first)/first*100:0;const dcls=d>=0?'up':(d<=-5?'down':'neutral');
+    const isK=s.b==='KOPIYKA';
+    const cells=s.v.map(v=>{
+      if(v==null)return '<td class="num">—</td>';
+      let cl='';if(v===mx)cl='cell-good';else if(v===mn)cl='cell-warn';
+      return `<td class="num ${cl}">${v.toLocaleString('uk')}</td>`;
+    }).join('');
+    return `<tr${isK?' style="background:#fff7ed"':''}><td style="font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.n}</td>`+
+      `<td>${s.b.replace('KOPIYKA ','').replace('KOPIYKA','KOP')}</td><td>${s.c}</td>${cells}<td class="num ${dcls}" style="font-weight:700">${d>=0?'+':''}${d.toFixed(0)}%</td></tr>`;
+  }).join('');
+}
+renderSku();
+
+// PDF export
+function downloadPDF(){
+  const el=document.getElementById('report');
+  const opt={margin:[8,8,8,8],filename:'KOPIYKA_weekly_deepdive_2026-06-22.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+    pagebreak:{mode:['css','legacy'],avoid:['.card','.insight']}};
+  html2pdf().set(opt).from(el).save();
+}
+</script>
+</body>
+</html>
