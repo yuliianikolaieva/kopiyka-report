@@ -2,7 +2,9 @@
 
 Тижневий розбір партнера **KOPIYKA Group** (бренди KOPIYKA / KOPIYKA MINI / SANTIM) на Bolt Food UA.
 
-**Живий звіт:** https://yuliianikolaieva.github.io/kopiyka-report/
+**Живий звіт (тижневий deep-dive):** https://yuliianikolaieva.github.io/kopiyka-report/
+
+**CVP звіт 2026 (місяці + квартали, порівняння з Grocery-сегментом):** https://yuliianikolaieva.github.io/kopiyka-report/cvp-2026.html
 
 ## Зміст звіту
 1. Динаміка GMV по брендах і містах (Одеса, Миколаїв)
