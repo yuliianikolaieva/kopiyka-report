@@ -1,149 +1,100 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Копійка Груп · CVP звіт 2026</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-:root{
-  --bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#2a2f3a;
-  --txt:#e7eaf0;--muted:#9aa4b2;--accent:#34d399;--accent2:#60a5fa;
-  --bad:#f87171;--good:#34d399;--warn:#fbbf24;--neu:#94a3b8;
-}
+:root{--bg:#0f1115;--panel:#171a21;--panel2:#1e222b;--line:#2a2f3a;--txt:#e7eaf0;--muted:#9aa4b2;
+--accent:#34d399;--accent2:#60a5fa;--bad:#f87171;--good:#34d399;--warn:#fbbf24;--neu:#94a3b8;--promo:#f59e0b;
+--kop:#34d399;--mini:#60a5fa;--santim:#c084fc;}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
-.wrap{max-width:1180px;margin:0 auto;padding:26px 20px 90px}
-header.top{border-bottom:1px solid var(--line);padding-bottom:18px}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5}
+.wrap{max-width:1400px;margin:0 auto;padding:24px 18px 80px}
+header.top{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:20px}
 .badge{display:inline-block;background:rgba(52,211,153,.14);color:var(--accent);font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;letter-spacing:.4px}
-h1{font-size:29px;margin:12px 0 6px}
-h2{font-size:20px;margin:34px 0 12px}
-h3{font-size:15px;margin:18px 0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+h1{font-size:27px;margin:12px 0 6px}
+h2{font-size:19px;margin:30px 0 12px}
 .sub{color:var(--muted);font-size:14px}
-.brandbar{position:sticky;top:0;z-index:30;background:var(--bg);padding:14px 0 10px;margin:8px 0 6px;border-bottom:1px solid var(--line)}
-.brandbar .tabs{display:inline-flex;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:4px;gap:2px}
-.brandbar button{background:transparent;border:none;color:var(--muted);padding:9px 20px;border-radius:9px;cursor:pointer;font-size:14px;font-weight:700}
-.brandbar button.active{background:var(--accent);color:#0a0d12}
-.grid{display:grid;gap:14px}
-.cards{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 17px}
-.card .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-.card .v{font-size:25px;font-weight:700;margin-top:6px}
-.card .d{font-size:13px;margin-top:4px}
-.card .b{font-size:12px;color:var(--muted);margin-top:2px}
-.up{color:var(--good)}.down{color:var(--bad)}.flat{color:var(--neu)}.neu{color:var(--neu)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px}
-.cols2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:820px){.cols2{grid-template-columns:1fr}}
-ul.clean{list-style:none;padding:0;margin:0}
-ul.clean li{padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
-ul.clean li:last-child{border-bottom:none}
-.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;margin-right:6px}
-.pill.crit{background:rgba(248,113,113,.16);color:var(--bad)}
-.pill.watch{background:rgba(251,191,36,.16);color:var(--warn)}
-.pill.win{background:rgba(52,211,153,.16);color:var(--good)}
-.imp{border-left:3px solid var(--warn);padding:11px 15px;margin-bottom:10px;background:var(--panel);border-radius:0 10px 10px 0}
-.imp.crit{border-left-color:var(--bad)}
-.imp .t{font-weight:700;font-size:15px}
-.imp .m{color:var(--muted);font-size:13px;margin-top:4px}
-.imp .nums{font-size:12px;color:var(--muted);margin-top:6px}
-.imp .nums b{color:var(--txt)}
-.toggle{display:inline-flex;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px;margin:4px 0}
-.toggle button{background:transparent;border:none;color:var(--muted);padding:7px 15px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
-.toggle button.active{background:var(--accent);color:#0a0d12}
-.charts{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
-.chartbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px}
-.chartbox h4{margin:0 0 8px;font-size:14px}
-.chartbox canvas{max-height:220px}
-.legend{font-size:12px;color:var(--muted);margin:6px 0}
+.hl{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:980px){.hl{grid-template-columns:1fr}}
+.hcol{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.hcol h3{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:8px}
+.hcol h3 .tag{width:10px;height:10px;border-radius:50%}
+.hitem{border-left:3px solid var(--line);padding:8px 12px;margin-bottom:9px;background:var(--panel2);border-radius:0 8px 8px 0}
+.hitem.crit{border-left-color:var(--bad)} .hitem.watch{border-left-color:var(--warn)} .hitem.win{border-left-color:var(--good)}
+.hitem .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.hitem.crit .k{color:var(--bad)} .hitem.watch .k{color:var(--warn)} .hitem.win .k{color:var(--good)}
+.hitem .t{font-size:13px;margin-top:3px;color:var(--txt)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{padding:6px 9px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;z-index:2;background:var(--panel);min-width:180px}
+thead th{background:var(--panel);color:var(--muted);font-weight:600;font-size:11.5px}
+.bh-kop{color:var(--kop)} .bh-mini{color:var(--mini)} .bh-santim{color:var(--santim)}
+.benchcol{background:rgba(96,165,250,.08);font-weight:600}
+tbody tr:hover td{background:var(--panel2)}
+tbody tr:hover td:first-child{background:var(--panel2)}
+.grp td{color:var(--accent2);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px;background:var(--panel2)}
+.cell-bad{color:var(--bad);font-weight:600}
+.cell-good{color:var(--good)}
+.cell-promo{background:rgba(245,158,11,.14);color:#fbbf24;font-weight:600}
+.sep{border-left:2px solid var(--line)}
+.legend{font-size:12px;color:var(--muted);margin:8px 0}
 .legend span{margin-right:16px}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
-.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
-th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--panel)}
-thead th{color:var(--muted);font-weight:600;font-size:12px;background:var(--panel)}
-tbody tr:hover td,tbody tr:hover td:first-child{background:var(--panel2)}
-.grp{color:var(--accent2);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
-.cell-bad{color:var(--bad);font-weight:600}.cell-good{color:var(--good)}
-footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:36px;padding-top:16px}
-.note{font-size:12px;color:var(--muted);margin-top:8px}
+.bannerwrap{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+@media(max-width:900px){.bannerwrap{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.panel ul{margin:6px 0 0;padding-left:18px}
+.panel li{margin-bottom:7px;font-size:13px}
+footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:34px;padding-top:16px}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header class="top">
   <span class="badge">BOLT FOOD · UKRAINE · ЗВІТ ДЛЯ ПАРТНЕРА</span>
-  <h1 id="mainTitle">Копійка Груп — огляд ефективності 2026</h1>
-  <div class="sub">Помісячна та поквартальна динаміка для брендів <b>Копійка</b>, <b>Копійка Міні</b> та <b>Сантім</b> окремо, з орієнтиром на середні показники grocery-сегмента Bolt Food. Період: січень–червень 2026.</div>
+  <h1>Копійка Груп — стислий огляд ефективності 2026</h1>
+  <div class="sub">Копійка · Копійка Міні · Сантім — помісячно (січень–червень) поряд, з єдиним орієнтиром «бенчмарк сегмента» (медіана інших grocery-партнерів, усереднена за 6 місяців). <span style="color:var(--promo)">Промо-доля</span> підсвічена окремо.</div>
 </header>
 
-<div class="brandbar">
-  <div class="tabs" id="brandTabs"></div>
-  <span class="sub" style="margin-left:14px">Показники для вибраного бренду</span>
-</div>
-
 <section>
-  <h2 id="secKpi">Ключові показники · Q2 2026</h2>
-  <div class="grid cards" id="kpiCards"></div>
+  <h2>Ключові акценти</h2>
+  <div class="hl" id="hl"></div>
 </section>
 
 <section>
-  <div class="cols2">
-    <div class="panel">
-      <h3><span class="pill win">Що працює добре</span></h3>
-      <ul class="clean" id="strengths"></ul>
-    </div>
-    <div class="panel">
-      <h3>Динаміка Q1 → Q2</h3>
-      <div style="font-size:13px;margin-bottom:6px;color:var(--good)"><b>Покращення:</b></div>
-      <ul class="clean" id="trendsUp"></ul>
-      <div style="font-size:13px;margin:12px 0 6px;color:var(--bad)"><b>Зниження:</b></div>
-      <ul class="clean" id="trendsDown"></ul>
-    </div>
+  <h2>Промо-банер на головному екрані</h2>
+  <div class="bannerwrap">
+    <div class="tablewrap"><table id="bannerTable"></table></div>
+    <div class="panel"><b>Що показують банери</b><ul id="bannerNotes"></ul></div>
   </div>
 </section>
 
 <section>
-  <h2>Можливості для зростання</h2>
-  <div class="sub" style="margin-bottom:12px">Напрями, де показники бренду нижчі за середні по сегменту та/або знижуються Q1→Q2. Для кожного — конкретна рекомендація спільних дій.</div>
-  <div id="opps"></div>
-</section>
-
-<section>
-  <h2>Динаміка по місяцях</h2>
+  <h2>Порівняльна таблиця показників</h2>
   <div class="legend">
-    <span><i class="dot" style="background:#34d399"></i><span id="legBrand">Бренд</span></span>
-    <span><i class="dot" style="background:#94a3b8"></i>Бенчмарк сегмента</span>
+    <span><i class="dot" style="background:var(--good)"></i>краще за бенчмарк</span>
+    <span><i class="dot" style="background:var(--bad)"></i>гірше за бенчмарк</span>
+    <span><i class="dot" style="background:var(--promo)"></i>промо-доля</span>
+    <span><i class="dot" style="background:var(--kop)"></i>Копійка</span>
+    <span><i class="dot" style="background:var(--mini)"></i>Копійка Міні</span>
+    <span><i class="dot" style="background:var(--santim)"></i>Сантім</span>
   </div>
-  <div class="grid charts" id="chartGrid" style="margin-top:10px"></div>
-</section>
-
-<section>
-  <h2>Повна таблиця показників</h2>
-  <div class="toggle" id="viewToggle">
-    <button data-v="month" class="active">За місяцями</button>
-    <button data-v="quarter">За кварталами</button>
-  </div>
-  <div class="tablewrap" style="margin-top:10px"><table id="mainTable"></table></div>
-  <div class="legend" style="margin-top:8px"><span class="cell-good">● зелений</span> — краще за бенчмарк сегмента; <span class="cell-bad">● червоний</span> — є простір для покращення. Колонка «Тренд» = зміна Q1→Q2 для бренду.</div>
+  <div class="tablewrap"><table id="mainTable"></table></div>
 </section>
 
 <footer>
-  <b>Методологія.</b> Джерело: агреговані показники Bolt Food (CVP). Бенчмарк — медіана по інших grocery-партнерах сегмента (без брендів групи), за той самий місяць/квартал; конкретні партнери не розкриваються.
-  Квартали: Q1 = січень–березень, Q2 = квітень–червень. Потокові показники (GMV, замовлення, покази, перегляди меню, нові клієнти) підсумовуються за квартал; ставки та середні — усереднюються.
-  Для кожного показника визначено природний напрям («більше краще» чи «менше краще»).
+  <b>Методологія.</b> Джерела: Bolt Food CVP (GMV / воронка / клієнти), curated_delivery (кількість SKU на магазин — медіана по магазинах бренду), Home Screen Banners.
+  Бенчмарк = медіана по інших grocery-партнерах сегмента (без брендів групи), усереднена за січень–червень 2026 (один показник). Конкретні партнери не розкриваються.
+  Кольори порівнюють помісячне значення бренду з бенчмарком з урахуванням природного напряму показника («більше краще» / «менше краще»).
 </footer>
 </div>
 
 <script>
-const R={"months": ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"], "month_lbl": ["Січ", "Лют", "Бер", "Кві", "Тра", "Чер"], "quarters": ["Q1 2026", "Q2 2026"], "group": ["KOPIYKA", "KOPIYKA MINI", "SANTIM"], "group_lbl": {"KOPIYKA": "Копійка", "KOPIYKA MINI": "Копійка Міні", "SANTIM": "Сантім"}, "benchLabel": "Бенчмарк grocery-сегмента Bolt Food (медіана)", "metrics": [{"key": "GMV", "label": "GMV (€)", "dir": 1, "fmt": "eur", "group": "Бізнес-масштаб", "flow": true, "bench_m": [60.0, 7507.5, 12182.0, 5533.0, 41039.0, 39335.5], "bench_q": [6359.5, 104156.0], "brands": {"KOPIYKA": {"m": [18501.0, 18637.0, 16985.0, 16191.0, 14141.0, 15154.0], "q": [54123.0, 45486.0], "trend": {"chg": -8637.0, "pct": -15.958095449254476, "verdict": "down"}, "flags": [1, 1, 1, 1, -1, -1]}, "KOPIYKA MINI": {"m": [4204.0, 3658.0, 4279.0, 4356.0, 5093.0, 5325.0], "q": [12141.0, 14774.0], "trend": {"chg": 2633.0, "pct": 21.686846223540073, "verdict": "up"}, "flags": [1, -1, -1, -1, -1, -1]}, "SANTIM": {"m": [4679.0, 5346.0, 7694.0, 6979.0, 6250.0, 6334.0], "q": [17719.0, 19563.0], "trend": {"chg": 1844.0, "pct": 10.406907839042836, "verdict": "up"}, "flags": [1, -1, -1, 1, -1, -1]}}}, {"key": "Orders", "label": "Замовлення", "dir": 1, "fmt": "int", "group": "Бізнес-масштаб", "flow": true, "bench_m": [7.0, 621.0, 767.0, 413.0, 2637.0, 2655.0], "bench_q": [405.5, 7710.0], "brands": {"KOPIYKA": {"m": [1523.0, 1443.0, 1522.0, 1317.0, 1250.0, 1339.0], "q": [4488.0, 3906.0], "trend": {"chg": -582.0, "pct": -12.967914438502673, "verdict": "down"}, "flags": [1, 1, 1, 1, -1, -1]}, "KOPIYKA MINI": {"m": [351.0, 326.0, 386.0, 353.0, 473.0, 466.0], "q": [1063.0, 1292.0], "trend": {"chg": 229.0, "pct": 21.54280338664158, "verdict": "up"}, "flags": [1, -1, -1, -1, -1, -1]}, "SANTIM": {"m": [317.0, 370.0, 498.0, 420.0, 436.0, 390.0], "q": [1185.0, 1246.0], "trend": {"chg": 61.0, "pct": 5.147679324894515, "verdict": "up"}, "flags": [1, -1, -1, 1, -1, -1]}}}, {"key": "Active Users", "label": "Активні клієнти", "dir": 1, "fmt": "int", "group": "Бізнес-масштаб", "flow": false, "bench_m": [5.0, 352.0, 545.0, 219.0, 1505.5, 1489.5], "bench_q": [104.0, 1416.5], "brands": {"KOPIYKA": {"m": [699.0, 747.0, 679.0, 569.0, 555.0, 530.0], "q": [708.3333333333334, 551.3333333333334], "trend": {"chg": -157.0, "pct": -22.16470588235294, "verdict": "down"}, "flags": [1, 1, 1, 1, -1, -1]}, "KOPIYKA MINI": {"m": [212.0, 210.0, 221.0, 171.0, 222.0, 231.0], "q": [214.33333333333334, 208.0], "trend": {"chg": -6.333333333333343, "pct": -2.954898911353037, "verdict": "down"}, "flags": [1, -1, -1, -1, -1, -1]}, "SANTIM": {"m": [161.0, 194.0, 220.0, 151.0, 190.0, 160.0], "q": [191.66666666666666, 167.0], "trend": {"chg": -24.666666666666657, "pct": -12.8695652173913, "verdict": "down"}, "flags": [1, -1, -1, -1, -1, -1]}}}, {"key": "New Users", "label": "Нові клієнти", "dir": 1, "fmt": "int", "group": "Бізнес-масштаб", "flow": true, "bench_m": [0.0, 28.0, 46.0, 17.5, 109.5, 105.5], "bench_q": [25.5, 347.5], "brands": {"KOPIYKA": {"m": [66.0, 74.0, 66.0, 47.0, 63.0, 52.0], "q": [206.0, 162.0], "trend": {"chg": -44.0, "pct": -21.35922330097087, "verdict": "down"}, "flags": [1, 1, 1, 1, -1, -1]}, "KOPIYKA MINI": {"m": [26.0, 23.0, 19.0, 19.0, 21.0, 22.0], "q": [68.0, 62.0], "trend": {"chg": -6.0, "pct": -8.823529411764707, "verdict": "down"}, "flags": [1, -1, -1, 1, -1, -1]}, "SANTIM": {"m": [11.0, 17.0, 11.0, 6.0, 7.0, 11.0], "q": [39.0, 24.0], "trend": {"chg": -15.0, "pct": -38.46153846153847, "verdict": "down"}, "flags": [1, -1, -1, -1, -1, -1]}}}, {"key": "Frequency", "label": "Частота замовлень", "dir": 1, "fmt": "dec", "group": "Бізнес-масштаб", "flow": false, "bench_m": [1.63, 1.625, 1.33, 1.315, 1.6949999999999998, 1.91], "bench_q": [1.5983333333333332, 1.6166666666666667], "brands": {"KOPIYKA": {"m": [2.18, 1.93, 2.24, 2.31, 2.25, 2.53], "q": [2.1166666666666667, 2.3633333333333333], "trend": {"chg": 0.2466666666666666, "pct": 11.65354330708661, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}, "KOPIYKA MINI": {"m": [1.66, 1.55, 1.75, 2.06, 2.13, 2.02], "q": [1.6533333333333333, 2.07], "trend": {"chg": 0.4166666666666665, "pct": 25.201612903225794, "verdict": "up"}, "flags": [1, -1, 1, 1, 1, 1]}, "SANTIM": {"m": [1.97, 1.91, 2.26, 2.78, 2.29, 2.44], "q": [2.0466666666666664, 2.5033333333333334], "trend": {"chg": 0.456666666666667, "pct": 22.312703583061907, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}}}, {"key": "Active Merchants", "label": "Активні магазини", "dir": 1, "fmt": "int", "group": "Бізнес-масштаб", "flow": false, "bench_m": [5.0, 5.0, 22.5, 22.0, 26.0, 26.0], "bench_q": [16.0, 24.666666666666668], "brands": {"KOPIYKA": {"m": [61.0, 60.0, 60.0, 60.0, 60.0, 60.0], "q": [60.333333333333336, 60.0], "trend": {"chg": -0.3333333333333357, "pct": -0.5524861878453078, "verdict": "down"}, "flags": [1, 1, 1, 1, 1, 1]}, "KOPIYKA MINI": {"m": [22.0, 21.0, 21.0, 19.0, 18.0, 18.0], "q": [21.333333333333332, 18.333333333333332], "trend": {"chg": -3.0, "pct": -14.0625, "verdict": "down"}, "flags": [1, 1, -1, -1, -1, -1]}, "SANTIM": {"m": [3.0, 3.0, 3.0, 3.0, 3.0, 3.0], "q": [3.0, 3.0], "trend": {"chg": 0.0, "pct": 0.0, "verdict": "flat"}, "flags": [-1, -1, -1, -1, -1, -1]}}}, {"key": "GMV per Order", "label": "Середній чек (AOV)", "dir": 1, "fmt": "eur", "group": "Юніт-економіка", "flow": false, "bench_m": [9.0, 13.0, 14.0, 13.5, 14.0, 14.0], "bench_q": [11.166666666666668, 13.5], "brands": {"KOPIYKA": {"m": [12.0, 13.0, 11.0, 12.0, 11.0, 11.0], "q": [12.0, 11.333333333333334], "trend": {"chg": -0.6666666666666661, "pct": -5.55555555555555, "verdict": "down"}, "flags": [1, 1, -1, -1, -1, -1]}, "KOPIYKA MINI": {"m": [12.0, 11.0, 11.0, 12.0, 11.0, 11.0], "q": [11.333333333333334, 11.333333333333334], "trend": {"chg": 0.0, "pct": 0.0, "verdict": "flat"}, "flags": [1, -1, -1, -1, -1, -1]}, "SANTIM": {"m": [15.0, 14.0, 15.0, 17.0, 14.0, 16.0], "q": [14.666666666666666, 15.666666666666666], "trend": {"chg": 1.0, "pct": 6.818181818181819, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}}}, {"key": "GMV per Merchant", "label": "GMV на магазин", "dir": 1, "fmt": "eur", "group": "Юніт-економіка", "flow": false, "bench_m": [30.18, 455.47, 99.04, 269.035, 799.555, 840.09], "bench_q": [40.865, 767.3166666666666], "brands": {"KOPIYKA": {"m": [303.3, 310.62, 283.08, 269.84, 235.69, 252.57], "q": [299.0, 252.7], "trend": {"chg": -46.30000000000001, "pct": -15.484949832775923, "verdict": "down"}, "flags": [1, -1, 1, 1, -1, -1]}, "KOPIYKA MINI": {"m": [191.09, 174.17, 203.78, 229.27, 282.96, 295.81], "q": [189.68, 269.3466666666667], "trend": {"chg": 79.66666666666669, "pct": 42.00056235062563, "verdict": "up"}, "flags": [1, -1, 1, -1, -1, -1]}, "SANTIM": {"m": [1559.63, 1781.9, 2564.66, 2326.43, 2083.2, 2111.41], "q": [1968.73, 2173.68], "trend": {"chg": 204.94999999999982, "pct": 10.410264485226508, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}}}, {"key": "Orders per Merchant", "label": "Замовлень на магазин", "dir": 1, "fmt": "int", "group": "Юніт-економіка", "flow": false, "bench_m": [4.0, 37.5, 6.0, 17.5, 55.5, 59.0], "bench_q": [3.833333333333333, 54.66666666666667], "brands": {"KOPIYKA": {"m": [25.0, 24.0, 25.0, 22.0, 21.0, 22.0], "q": [24.666666666666668, 21.666666666666668], "trend": {"chg": -3.0, "pct": -12.162162162162161, "verdict": "down"}, "flags": [1, -1, 1, 1, -1, -1]}, "KOPIYKA MINI": {"m": [16.0, 16.0, 18.0, 19.0, 26.0, 26.0], "q": [16.666666666666668, 23.666666666666668], "trend": {"chg": 7.0, "pct": 42.0, "verdict": "up"}, "flags": [1, -1, 1, 1, -1, -1]}, "SANTIM": {"m": [106.0, 123.0, 166.0, 140.0, 145.0, 130.0], "q": [131.66666666666666, 138.33333333333334], "trend": {"chg": 6.666666666666686, "pct": 5.063291139240521, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}}}, {"key": "Impressions", "label": "Покази в застосунку", "dir": 1, "fmt": "int", "group": "Воронка попиту", "flow": true, "bench_m": [6223.0, 3163.0, 97074.0, 53510.5, 236668.0, 203586.5], "bench_q": [77808.5, 503614.5], "brands": {"KOPIYKA": {"m": [122416.0, 95725.0, 86581.0, 85870.0, 87421.0, 77932.0], "q": [304722.0, 251223.0], "trend": {"chg": -53499.0, "pct": -17.556658199933054, "verdict": "down"}, "flags": [1, 1, -1, 1, -1, -1]}, "KOPIYKA MINI": {"m": [63746.0, 44123.0, 41019.0, 50031.0, 46994.0, 37756.0], "q": [148888.0, 134781.0], "trend": {"chg": -14107.0, "pct": -9.47490731287948, "verdict": "down"}, "flags": [1, 1, -1, -1, -1, -1]}, "SANTIM": {"m": [30966.0, 25976.0, 26826.0, 24909.0, 25938.0, 25330.0], "q": [83768.0, 76177.0], "trend": {"chg": -7591.0, "pct": -9.061932957692676, "verdict": "down"}, "flags": [1, 1, -1, -1, -1, -1]}}}, {"key": "Discovery Rate", "label": "Discovery Rate", "dir": 1, "fmt": "pct", "group": "Воронка попиту", "flow": false, "bench_m": [5.0, 6.0, 5.0, 8.0, 6.0, 6.0], "bench_q": [5.166666666666666, 7.166666666666666], "brands": {"KOPIYKA": {"m": [5.0, 6.0, 6.0, 5.0, 5.0, 5.0], "q": [5.666666666666667, 5.0], "trend": {"chg": -0.666666666666667, "pct": -11.764705882352946, "verdict": "down"}, "flags": [1, 1, 1, -1, -1, -1]}, "KOPIYKA MINI": {"m": [3.0, 4.0, 4.0, 3.0, 4.0, 4.0], "q": [3.6666666666666665, 3.6666666666666665], "trend": {"chg": 0.0, "pct": 0.0, "verdict": "flat"}, "flags": [-1, -1, -1, -1, -1, -1]}, "SANTIM": {"m": [5.0, 6.0, 7.0, 6.0, 6.0, 5.0], "q": [6.0, 5.666666666666667], "trend": {"chg": -0.33333333333333304, "pct": -5.55555555555555, "verdict": "down"}, "flags": [1, 1, 1, -1, 1, -1]}}}, {"key": "Menu views", "label": "Перегляди меню", "dir": 1, "fmt": "int", "group": "Воронка попиту", "flow": true, "bench_m": [265.0, 365.0, 4739.0, 2484.5, 15302.0, 12690.0], "bench_q": [7266.0, 29890.0], "brands": {"KOPIYKA": {"m": [6509.0, 5532.0, 4966.0, 4551.0, 4648.0, 4228.0], "q": [17007.0, 13427.0], "trend": {"chg": -3580.0, "pct": -21.050155818192508, "verdict": "down"}, "flags": [1, 1, 1, 1, -1, -1]}, "KOPIYKA MINI": {"m": [2175.0, 1716.0, 1563.0, 1645.0, 1907.0, 1629.0], "q": [5454.0, 5181.0], "trend": {"chg": -273.0, "pct": -5.005500550055006, "verdict": "down"}, "flags": [1, 1, -1, -1, -1, -1]}, "SANTIM": {"m": [1480.0, 1474.0, 1815.0, 1458.0, 1503.0, 1319.0], "q": [4769.0, 4280.0], "trend": {"chg": -489.0, "pct": -10.253721954288112, "verdict": "down"}, "flags": [1, 1, -1, -1, -1, -1]}}}, {"key": "Menu Engagement Rate", "label": "Menu Engagement Rate", "dir": 1, "fmt": "pct", "group": "Воронка попиту", "flow": false, "bench_m": [10.0, 22.0, 18.0, 33.0, 34.5, 41.0], "bench_q": [11.333333333333334, 36.833333333333336], "brands": {"KOPIYKA": {"m": [48.0, 50.0, 50.0, 48.0, 44.0, 48.0], "q": [49.333333333333336, 46.666666666666664], "trend": {"chg": -2.6666666666666714, "pct": -5.405405405405415, "verdict": "down"}, "flags": [1, 1, 1, 1, 1, 1]}, "KOPIYKA MINI": {"m": [37.0, 40.0, 46.0, 37.0, 39.0, 43.0], "q": [41.0, 39.666666666666664], "trend": {"chg": -1.3333333333333357, "pct": -3.252032520325209, "verdict": "down"}, "flags": [1, 1, 1, 1, 1, 1]}, "SANTIM": {"m": [41.0, 45.0, 45.0, 42.0, 42.0, 43.0], "q": [43.666666666666664, 42.333333333333336], "trend": {"chg": -1.3333333333333286, "pct": -3.0534351145038063, "verdict": "down"}, "flags": [1, 1, 1, 1, 1, 1]}}}, {"key": "Cart Abandonment Rate", "label": "Покинуті кошики", "dir": -1, "fmt": "pct", "group": "Воронка попиту", "flow": false, "bench_m": [52.0, 43.0, 34.0, 46.5, 49.5, 50.5], "bench_q": [39.33333333333333, 48.833333333333336], "brands": {"KOPIYKA": {"m": [49.0, 53.0, 60.0, 58.0, 58.0, 62.0], "q": [54.0, 59.333333333333336], "trend": {"chg": 5.333333333333336, "pct": 9.876543209876548, "verdict": "down"}, "flags": [1, -1, -1, -1, -1, -1]}, "KOPIYKA MINI": {"m": [48.0, 48.0, 55.0, 56.0, 60.0, 65.0], "q": [50.333333333333336, 60.333333333333336], "trend": {"chg": 10.0, "pct": 19.867549668874172, "verdict": "down"}, "flags": [1, -1, -1, -1, -1, -1]}, "SANTIM": {"m": [55.0, 57.0, 57.0, 61.0, 64.0, 64.0], "q": [56.333333333333336, 63.0], "trend": {"chg": 6.666666666666664, "pct": 11.834319526627214, "verdict": "down"}, "flags": [-1, -1, -1, -1, -1, -1]}}}, {"key": "Conversion Rate", "label": "Конверсія", "dir": 1, "fmt": "pct", "group": "Воронка попиту", "flow": false, "bench_m": [8.0, 9.0, 6.0, 15.5, 18.0, 21.0], "bench_q": [4.833333333333334, 18.5], "brands": {"KOPIYKA": {"m": [24.0, 26.0, 30.0, 28.0, 26.0, 30.0], "q": [26.666666666666668, 28.0], "trend": {"chg": 1.3333333333333321, "pct": 4.999999999999996, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}, "KOPIYKA MINI": {"m": [18.0, 19.0, 25.0, 21.0, 23.0, 28.0], "q": [20.666666666666668, 24.0], "trend": {"chg": 3.333333333333332, "pct": 16.12903225806451, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}, "SANTIM": {"m": [23.0, 26.0, 26.0, 26.0, 27.0, 28.0], "q": [25.0, 27.0], "trend": {"chg": 2.0, "pct": 8.0, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}}}, {"key": "Merchant Availability Rate", "label": "Доступність магазинів", "dir": 1, "fmt": "pct", "group": "Доступність", "flow": false, "bench_m": [56.0, 31.5, 40.5, 62.0, 61.5, 68.5], "bench_q": [34.833333333333336, 64.0], "brands": {"KOPIYKA": {"m": [96.0, 96.0, 95.0, 93.0, 91.0, 91.0], "q": [95.66666666666667, 91.66666666666667], "trend": {"chg": -4.0, "pct": -4.181184668989546, "verdict": "down"}, "flags": [1, 1, 1, 1, 1, 1]}, "KOPIYKA MINI": {"m": [96.0, 97.0, 98.0, 98.0, 95.0, 96.0], "q": [97.0, 96.33333333333333], "trend": {"chg": -0.6666666666666714, "pct": -0.6872852233677025, "verdict": "down"}, "flags": [1, 1, 1, 1, 1, 1]}, "SANTIM": {"m": [97.0, 97.0, 94.0, 91.0, 95.0, 90.0], "q": [96.0, 92.0], "trend": {"chg": -4.0, "pct": -4.166666666666666, "verdict": "down"}, "flags": [1, 1, 1, 1, 1, 1]}}}, {"key": "SKU Availability", "label": "Наповненість меню (SKU)", "dir": 1, "fmt": "pct", "group": "Доступність", "flow": false, "bench_m": [0.0, 0.0, 41.0, 94.5, 93.5, 88.0], "bench_q": [13.666666666666666, 92.0], "brands": {"KOPIYKA": {"m": [0.0, 0.0, 26.0, 87.0, 88.0, 87.0], "q": [8.666666666666666, 87.33333333333333], "trend": {"chg": 78.66666666666666, "pct": 907.6923076923076, "verdict": "up"}, "flags": [1, 1, -1, -1, -1, -1]}, "KOPIYKA MINI": {"m": [0.0, 0.0, 30.0, 88.0, 88.0, 87.0], "q": [10.0, 87.66666666666667], "trend": {"chg": 77.66666666666667, "pct": 776.6666666666667, "verdict": "up"}, "flags": [1, 1, -1, -1, -1, -1]}, "SANTIM": {"m": [0.0, 0.0, 24.0, 86.0, 87.0, 84.0], "q": [8.0, 85.66666666666667], "trend": {"chg": 77.66666666666667, "pct": 970.8333333333334, "verdict": "up"}, "flags": [1, 1, -1, -1, -1, -1]}}}, {"key": "Total Delivery Time, min", "label": "Час доставки", "dir": -1, "fmt": "min", "group": "Швидкість і якість", "flow": false, "bench_m": [51.0, 227.5, 32.0, 42.5, 37.0, 52.0], "bench_q": [44.33333333333333, 48.66666666666667], "brands": {"KOPIYKA": {"m": [66.0, 51.0, 37.0, 37.0, 49.0, 34.0], "q": [51.333333333333336, 40.0], "trend": {"chg": -11.333333333333336, "pct": -22.077922077922082, "verdict": "up"}, "flags": [-1, 1, -1, 1, -1, 1]}, "KOPIYKA MINI": {"m": [51.0, 52.0, 33.0, 65.0, 88.0, 70.0], "q": [45.333333333333336, 74.33333333333333], "trend": {"chg": 28.999999999999993, "pct": 63.9705882352941, "verdict": "down"}, "flags": [1, 1, -1, -1, -1, -1]}, "SANTIM": {"m": [54.0, 45.0, 37.0, 42.0, 33.0, 45.0], "q": [45.333333333333336, 40.0], "trend": {"chg": -5.333333333333336, "pct": -11.764705882352946, "verdict": "up"}, "flags": [-1, 1, -1, 1, 1, 1]}}}, {"key": "Late Delivery (10+min) Rate", "label": "Запізнення (10+ хв)", "dir": -1, "fmt": "pct", "group": "Швидкість і якість", "flow": false, "bench_m": [19.0, 6.0, 2.5, 3.0, 5.0, 4.0], "bench_q": [8.0, 4.666666666666667], "brands": {"KOPIYKA": {"m": [22.0, 14.0, 11.0, 12.0, 11.0, 8.0], "q": [15.666666666666666, 10.333333333333334], "trend": {"chg": -5.333333333333332, "pct": -34.042553191489354, "verdict": "up"}, "flags": [-1, -1, -1, -1, -1, -1]}, "KOPIYKA MINI": {"m": [17.0, 13.0, 7.0, 9.0, 10.0, 9.0], "q": [12.333333333333334, 9.333333333333334], "trend": {"chg": -3.0, "pct": -24.324324324324323, "verdict": "up"}, "flags": [1, -1, -1, -1, -1, -1]}, "SANTIM": {"m": [20.0, 8.0, 7.0, 8.0, 9.0, 7.0], "q": [11.666666666666666, 8.0], "trend": {"chg": -3.666666666666666, "pct": -31.428571428571423, "verdict": "up"}, "flags": [-1, -1, -1, -1, -1, -1]}}}, {"key": "Not-delivered orders, %", "label": "Недоставлені замовлення", "dir": -1, "fmt": "pct", "group": "Швидкість і якість", "flow": false, "bench_m": [27.0, 21.5, 13.0, 28.5, 10.0, 8.0], "bench_q": [23.166666666666668, 23.0], "brands": {"KOPIYKA": {"m": [11.0, 8.0, 6.0, 5.0, 5.0, 6.0], "q": [8.333333333333334, 5.333333333333333], "trend": {"chg": -3.000000000000001, "pct": -36.00000000000001, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}, "KOPIYKA MINI": {"m": [17.0, 9.0, 7.0, 8.0, 5.0, 7.0], "q": [11.0, 6.666666666666667], "trend": {"chg": -4.333333333333333, "pct": -39.39393939393939, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}, "SANTIM": {"m": [11.0, 6.0, 4.0, 3.0, 4.0, 5.0], "q": [7.0, 4.0], "trend": {"chg": -3.0, "pct": -42.857142857142854, "verdict": "up"}, "flags": [1, 1, 1, 1, 1, 1]}}}, {"key": "Order Defect Rate", "label": "Order Defect Rate", "dir": -1, "fmt": "pct", "group": "Швидкість і якість", "flow": false, "bench_m": [25.0, 14.0, 19.0, 11.0, 34.5, 31.0], "bench_q": [17.833333333333332, 28.0], "brands": {"KOPIYKA": {"m": [43.0, 39.0, 35.0, 35.0, 32.0, 35.0], "q": [39.0, 34.0], "trend": {"chg": -5.0, "pct": -12.82051282051282, "verdict": "up"}, "flags": [-1, -1, -1, -1, 1, -1]}, "KOPIYKA MINI": {"m": [31.0, 24.0, 23.0, 21.0, 21.0, 20.0], "q": [26.0, 20.666666666666668], "trend": {"chg": -5.333333333333332, "pct": -20.51282051282051, "verdict": "up"}, "flags": [-1, -1, -1, -1, 1, 1]}, "SANTIM": {"m": [43.0, 36.0, 35.0, 33.0, 32.0, 34.0], "q": [38.0, 33.0], "trend": {"chg": -5.0, "pct": -13.157894736842104, "verdict": "up"}, "flags": [-1, -1, -1, -1, 1, -1]}}}, {"key": "Order Replacement Rate", "label": "Заміни товарів", "dir": -1, "fmt": "pct", "group": "Швидкість і якість", "flow": false, "bench_m": [13.5, 11.5, 9.0, 15.0, 7.0, 22.0], "bench_q": [19.666666666666668, 14.416666666666668], "brands": {"KOPIYKA": {"m": [42.0, 38.0, 27.0, 22.0, 21.0, 29.0], "q": [35.666666666666664, 24.0], "trend": {"chg": -11.666666666666664, "pct": -32.71028037383177, "verdict": "up"}, "flags": [-1, -1, -1, -1, -1, -1]}, "KOPIYKA MINI": {"m": [43.0, 33.0, 28.0, 22.0, 21.0, 30.0], "q": [34.666666666666664, 24.333333333333332], "trend": {"chg": -10.333333333333332, "pct": -29.807692307692307, "verdict": "up"}, "flags": [-1, -1, -1, -1, -1, -1]}, "SANTIM": {"m": [46.0, 32.0, 22.0, 16.0, 17.0, 27.0], "q": [33.333333333333336, 20.0], "trend": {"chg": -13.333333333333336, "pct": -40.0, "verdict": "up"}, "flags": [-1, -1, -1, -1, -1, -1]}}}, {"key": "CS Ticket Order Rate", "label": "Звернення в підтримку", "dir": -1, "fmt": "pct", "group": "Швидкість і якість", "flow": false, "bench_m": [8.0, 5.0, 10.0, 2.5, 8.5, 6.5], "bench_q": [8.333333333333334, 5.166666666666666], "brands": {"KOPIYKA": {"m": [13.0, 10.0, 6.0, 6.0, 5.0, 4.0], "q": [9.666666666666666, 5.0], "trend": {"chg": -4.666666666666666, "pct": -48.275862068965516, "verdict": "up"}, "flags": [-1, -1, 1, -1, 1, 1]}, "KOPIYKA MINI": {"m": [13.0, 7.0, 5.0, 4.0, 5.0, 5.0], "q": [8.333333333333334, 4.666666666666667], "trend": {"chg": -3.666666666666667, "pct": -44.0, "verdict": "up"}, "flags": [-1, -1, 1, -1, 1, 1]}, "SANTIM": {"m": [12.0, 7.0, 7.0, 5.0, 7.0, 5.0], "q": [8.666666666666666, 5.666666666666667], "trend": {"chg": -2.999999999999999, "pct": -34.615384615384606, "verdict": "up"}, "flags": [-1, -1, 1, -1, 1, 1]}}}, {"key": "Bolt Plus GMV Share", "label": "Bolt Plus GMV Share", "dir": 0, "fmt": "pct", "group": "Промо-контекст", "flow": false, "bench_m": [16.0, 14.0, 19.0, 18.0, 17.0, 16.5], "bench_q": [17.666666666666664, 15.5], "brands": {"KOPIYKA": {"m": [14.0, 14.0, 12.0, 16.0, 15.0, 14.0], "q": [13.333333333333334, 15.0], "trend": {"chg": 1.666666666666666, "pct": 12.499999999999995, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}, "KOPIYKA MINI": {"m": [9.0, 13.0, 9.0, 9.0, 9.0, 13.0], "q": [10.333333333333334, 10.333333333333334], "trend": {"chg": 0.0, "pct": 0.0, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}, "SANTIM": {"m": [22.0, 25.0, 22.0, 16.0, 16.0, 19.0], "q": [23.0, 17.0], "trend": {"chg": -6.0, "pct": -26.08695652173913, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}}}, {"key": "Eater Frees, AOV %", "label": "Комісія клієнта, % AOV", "dir": 0, "fmt": "pct", "group": "Промо-контекст", "flow": false, "bench_m": [32.0, 15.5, 17.0, 13.0, 16.5, 13.0], "bench_q": [26.0, 14.166666666666668], "brands": {"KOPIYKA": {"m": [17.0, 18.0, 20.0, 17.0, 15.0, 15.0], "q": [18.333333333333332, 15.666666666666666], "trend": {"chg": -2.666666666666666, "pct": -14.545454545454541, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}, "KOPIYKA MINI": {"m": [18.0, 21.0, 21.0, 17.0, 16.0, 15.0], "q": [20.0, 16.0], "trend": {"chg": -4.0, "pct": -20.0, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}, "SANTIM": {"m": [13.0, 15.0, 15.0, 13.0, 15.0, 13.0], "q": [14.333333333333334, 13.666666666666666], "trend": {"chg": -0.6666666666666679, "pct": -4.651162790697683, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}}}, {"key": "Item-Level Promo, GMV %", "label": "Промо на товари, % GMV", "dir": 0, "fmt": "pct", "group": "Промо-контекст", "flow": false, "bench_m": [0.0, 0.0, 1.0, 1.5, 2.5, 12.0], "bench_q": [0.3333333333333333, 5.333333333333333], "brands": {"KOPIYKA": {"m": [11.0, 14.0, 5.0, 18.0, 8.0, 8.0], "q": [10.0, 11.333333333333334], "trend": {"chg": 1.333333333333334, "pct": 13.33333333333334, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}, "KOPIYKA MINI": {"m": [14.0, 16.0, 4.0, 19.0, 2.0, 25.0], "q": [11.333333333333334, 15.333333333333334], "trend": {"chg": 4.0, "pct": 35.29411764705882, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}, "SANTIM": {"m": [8.0, 17.0, 3.0, 8.0, 1.0, 14.0], "q": [9.333333333333334, 7.666666666666667], "trend": {"chg": -1.666666666666667, "pct": -17.85714285714286, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}}}, {"key": "Campaigns Discount, GMV %", "label": "Знижки кампаній, % GMV", "dir": 0, "fmt": "pct", "group": "Промо-контекст", "flow": false, "bench_m": [0.0, 3.0, 4.0, 4.0, 4.5, 5.0], "bench_q": [0.8333333333333334, 4.166666666666667], "brands": {"KOPIYKA": {"m": [7.0, 7.0, 7.0, 8.0, 5.0, 5.0], "q": [7.0, 6.0], "trend": {"chg": -1.0, "pct": -14.285714285714285, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}, "KOPIYKA MINI": {"m": [7.0, 9.0, 7.0, 9.0, 4.0, 10.0], "q": [7.666666666666667, 7.666666666666667], "trend": {"chg": 0.0, "pct": 0.0, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}, "SANTIM": {"m": [3.0, 8.0, 7.0, 5.0, 4.0, 8.0], "q": [6.0, 5.666666666666667], "trend": {"chg": -0.33333333333333304, "pct": -5.55555555555555, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}}}, {"key": "Orders with Delivery Fee Campaign", "label": "Замовл. з безкошт. доставкою", "dir": 0, "fmt": "pct", "group": "Промо-контекст", "flow": false, "bench_m": [0.0, 35.0, 36.0, 59.5, 50.5, 0.0], "bench_q": [8.166666666666666, 36.0], "brands": {"KOPIYKA": {"m": [55.0, 60.0, 83.0, 55.0, 57.0, 46.0], "q": [66.0, 52.666666666666664], "trend": {"chg": -13.333333333333336, "pct": -20.202020202020204, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}, "KOPIYKA MINI": {"m": [48.0, 59.0, 86.0, 56.0, 53.0, 42.0], "q": [64.33333333333333, 50.333333333333336], "trend": {"chg": -13.999999999999993, "pct": -21.761658031088075, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}, "SANTIM": {"m": [10.0, 51.0, 86.0, 67.0, 75.0, 61.0], "q": [49.0, 67.66666666666667], "trend": {"chg": 18.66666666666667, "pct": 38.0952380952381, "verdict": "neu"}, "flags": [0, 0, 0, 0, 0, 0]}}}], "insights": {"KOPIYKA": {"strengths": ["Активні магазини: 60 — краще за бенчмарк сегмента (25)", "Недоставлені замовлення: 5% — краще за бенчмарк сегмента (23%)", "Конверсія: 28% — краще за бенчмарк сегмента (18%)", "Частота замовлень: 2.36 — краще за бенчмарк сегмента (1.62)", "Доступність магазинів: 92% — краще за бенчмарк сегмента (64%)"], "opps": [{"key": "GMV per Merchant", "label": "GMV на магазин", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "оптимізувати асортимент і роботу локацій із нижчою віддачею", "q2": 252.7, "bench": 767.3166666666666, "trend": {"chg": -46.30000000000001, "pct": -15.484949832775923, "verdict": "down"}, "fmt": "eur"}, {"key": "Active Users", "label": "Активні клієнти", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "реактивувати неактивних клієнтів і працювати з відтоком через CRM та Bolt Plus", "q2": 551.3333333333334, "bench": 1416.5, "trend": {"chg": -157.0, "pct": -22.16470588235294, "verdict": "down"}, "fmt": "int"}, {"key": "Orders per Merchant", "label": "Замовлень на магазин", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "збільшити навантаження на магазин через локальні промо та видимість", "q2": 21.666666666666668, "bench": 54.66666666666667, "trend": {"chg": -3.0, "pct": -12.162162162162161, "verdict": "down"}, "fmt": "int"}, {"key": "GMV", "label": "GMV (€)", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "повертати відток активних клієнтів і стимулювати повторні покупки (персональні промо, CRM, ретеншн)", "q2": 45486.0, "bench": 104156.0, "trend": {"chg": -8637.0, "pct": -15.958095449254476, "verdict": "down"}, "fmt": "eur"}, {"key": "Menu views", "label": "Перегляди меню", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "", "q2": 13427.0, "bench": 29890.0, "trend": {"chg": -3580.0, "pct": -21.050155818192508, "verdict": "down"}, "fmt": "int"}, {"key": "New Users", "label": "Нові клієнти", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "підсилити верх воронки — видимість у застосунку та промо для першого замовлення", "q2": 162.0, "bench": 347.5, "trend": {"chg": -44.0, "pct": -21.35922330097087, "verdict": "down"}, "fmt": "int"}, {"key": "Impressions", "label": "Покази в застосунку", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "", "q2": 251223.0, "bench": 503614.5, "trend": {"chg": -53499.0, "pct": -17.556658199933054, "verdict": "down"}, "fmt": "int"}, {"key": "Orders", "label": "Замовлення", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "нарощувати частоту та конверсію (тригерні пуші, пороги безкоштовної доставки)", "q2": 3906.0, "bench": 7710.0, "trend": {"chg": -582.0, "pct": -12.967914438502673, "verdict": "down"}, "fmt": "int"}], "trends_up": [{"label": "Наповненість меню (SKU)", "pct": 907.6923076923076}, {"label": "Звернення в підтримку", "pct": -48.275862068965516}, {"label": "Недоставлені замовлення", "pct": -36.00000000000001}, {"label": "Запізнення (10+ хв)", "pct": -34.042553191489354}, {"label": "Заміни товарів", "pct": -32.71028037383177}], "trends_down": [{"label": "Активні клієнти", "pct": -22.16470588235294}, {"label": "Нові клієнти", "pct": -21.35922330097087}, {"label": "Перегляди меню", "pct": -21.050155818192508}, {"label": "Покази в застосунку", "pct": -17.556658199933054}, {"label": "GMV (€)", "pct": -15.958095449254476}]}, "KOPIYKA MINI": {"strengths": ["Недоставлені замовлення: 7% — краще за бенчмарк сегмента (23%)", "Доступність магазинів: 96% — краще за бенчмарк сегмента (64%)", "Конверсія: 24% — краще за бенчмарк сегмента (18%)", "Частота замовлень: 2.07 — краще за бенчмарк сегмента (1.62)", "Order Defect Rate: 21% — краще за бенчмарк сегмента (28%)"], "opps": [{"key": "Active Users", "label": "Активні клієнти", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "реактивувати неактивних клієнтів і працювати з відтоком через CRM та Bolt Plus", "q2": 208.0, "bench": 1416.5, "trend": {"chg": -6.333333333333343, "pct": -2.954898911353037, "verdict": "down"}, "fmt": "int"}, {"key": "Menu views", "label": "Перегляди меню", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "", "q2": 5181.0, "bench": 29890.0, "trend": {"chg": -273.0, "pct": -5.005500550055006, "verdict": "down"}, "fmt": "int"}, {"key": "New Users", "label": "Нові клієнти", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "підсилити верх воронки — видимість у застосунку та промо для першого замовлення", "q2": 62.0, "bench": 347.5, "trend": {"chg": -6.0, "pct": -8.823529411764707, "verdict": "down"}, "fmt": "int"}, {"key": "Impressions", "label": "Покази в застосунку", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "", "q2": 134781.0, "bench": 503614.5, "trend": {"chg": -14107.0, "pct": -9.47490731287948, "verdict": "down"}, "fmt": "int"}, {"key": "Total Delivery Time, min", "label": "Час доставки", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "скоротити час доставки: швидша збірка, покриття кур'єрами, зонування", "q2": 74.33333333333333, "bench": 48.66666666666667, "trend": {"chg": 28.999999999999993, "pct": 63.9705882352941, "verdict": "down"}, "fmt": "min"}, {"key": "Active Merchants", "label": "Активні магазини", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "", "q2": 18.333333333333332, "bench": 24.666666666666668, "trend": {"chg": -3.0, "pct": -14.0625, "verdict": "down"}, "fmt": "int"}, {"key": "Cart Abandonment Rate", "label": "Покинуті кошики", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "зменшити тертя на кошику: прозорі фі, доступність товарів, швидший чекаут, нагадування про кошик", "q2": 60.333333333333336, "bench": 48.833333333333336, "trend": {"chg": 10.0, "pct": 19.867549668874172, "verdict": "down"}, "fmt": "pct"}, {"key": "Late Delivery (10+min) Rate", "label": "Запізнення (10+ хв)", "tags": ["гірше за сегмент"], "advice": "знизити частку запізнень: реалістичні ETA, пріоритет великих замовлень", "q2": 9.333333333333334, "bench": 4.666666666666667, "trend": {"chg": -3.0, "pct": -24.324324324324323, "verdict": "up"}, "fmt": "pct"}], "trends_up": [{"label": "Наповненість меню (SKU)", "pct": 776.6666666666667}, {"label": "Звернення в підтримку", "pct": -44.0}, {"label": "GMV на магазин", "pct": 42.00056235062563}, {"label": "Замовлень на магазин", "pct": 42.0}, {"label": "Недоставлені замовлення", "pct": -39.39393939393939}], "trends_down": [{"label": "Час доставки", "pct": 63.9705882352941}, {"label": "Покинуті кошики", "pct": 19.867549668874172}, {"label": "Активні магазини", "pct": -14.0625}, {"label": "Покази в застосунку", "pct": -9.47490731287948}, {"label": "Нові клієнти", "pct": -8.823529411764707}]}, "SANTIM": {"strengths": ["GMV на магазин: €2 174 — краще за бенчмарк сегмента (€767)", "Замовлень на магазин: 138 — краще за бенчмарк сегмента (55)", "Недоставлені замовлення: 4% — краще за бенчмарк сегмента (23%)", "Частота замовлень: 2.50 — краще за бенчмарк сегмента (1.62)", "Конверсія: 27% — краще за бенчмарк сегмента (18%)"], "opps": [{"key": "New Users", "label": "Нові клієнти", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "підсилити верх воронки — видимість у застосунку та промо для першого замовлення", "q2": 24.0, "bench": 347.5, "trend": {"chg": -15.0, "pct": -38.46153846153847, "verdict": "down"}, "fmt": "int"}, {"key": "Active Users", "label": "Активні клієнти", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "реактивувати неактивних клієнтів і працювати з відтоком через CRM та Bolt Plus", "q2": 167.0, "bench": 1416.5, "trend": {"chg": -24.666666666666657, "pct": -12.8695652173913, "verdict": "down"}, "fmt": "int"}, {"key": "Menu views", "label": "Перегляди меню", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "", "q2": 4280.0, "bench": 29890.0, "trend": {"chg": -489.0, "pct": -10.253721954288112, "verdict": "down"}, "fmt": "int"}, {"key": "Impressions", "label": "Покази в застосунку", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "", "q2": 76177.0, "bench": 503614.5, "trend": {"chg": -7591.0, "pct": -9.061932957692676, "verdict": "down"}, "fmt": "int"}, {"key": "Cart Abandonment Rate", "label": "Покинуті кошики", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "зменшити тертя на кошику: прозорі фі, доступність товарів, швидший чекаут, нагадування про кошик", "q2": 63.0, "bench": 48.833333333333336, "trend": {"chg": 6.666666666666664, "pct": 11.834319526627214, "verdict": "down"}, "fmt": "pct"}, {"key": "Discovery Rate", "label": "Discovery Rate", "tags": ["гірше за сегмент", "падіння Q1→Q2"], "advice": "покращити видимість магазинів у стрічці та пошуку", "q2": 5.666666666666667, "bench": 7.166666666666666, "trend": {"chg": -0.33333333333333304, "pct": -5.55555555555555, "verdict": "down"}, "fmt": "pct"}, {"key": "Active Merchants", "label": "Активні магазини", "tags": ["гірше за сегмент"], "advice": "", "q2": 3.0, "bench": 24.666666666666668, "trend": {"chg": 0.0, "pct": 0.0, "verdict": "flat"}, "fmt": "int"}, {"key": "Orders", "label": "Замовлення", "tags": ["гірше за сегмент"], "advice": "нарощувати частоту та конверсію (тригерні пуші, пороги безкоштовної доставки)", "q2": 1246.0, "bench": 7710.0, "trend": {"chg": 61.0, "pct": 5.147679324894515, "verdict": "up"}, "fmt": "int"}], "trends_up": [{"label": "Наповненість меню (SKU)", "pct": 970.8333333333334}, {"label": "Недоставлені замовлення", "pct": -42.857142857142854}, {"label": "Заміни товарів", "pct": -40.0}, {"label": "Звернення в підтримку", "pct": -34.615384615384606}, {"label": "Запізнення (10+ хв)", "pct": -31.428571428571423}], "trends_down": [{"label": "Нові клієнти", "pct": -38.46153846153847}, {"label": "Активні клієнти", "pct": -12.8695652173913}, {"label": "Покинуті кошики", "pct": 11.834319526627214}, {"label": "Перегляди меню", "pct": -10.253721954288112}, {"label": "Покази в застосунку", "pct": -9.061932957692676}]}}};
-const M=R.metrics;
-const byKey=Object.fromEntries(M.map(m=>[m.key,m]));
-const GROUP=R.group, LBL=R.group_lbl;
-let brand=GROUP[0], view="month";
-let charts=[];
-
+const R={"months": ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"], "month_lbl": ["Січ", "Лют", "Бер", "Кві", "Тра", "Чер"], "group": ["KOPIYKA", "KOPIYKA MINI", "SANTIM"], "group_lbl": {"KOPIYKA": "Копійка", "KOPIYKA MINI": "Копійка Міні", "SANTIM": "Сантім"}, "benchLabel": "Бенчмарк сегмента (сер. 6 міс)", "metrics": [{"key": "GMV", "label": "GMV (€)", "dir": 1, "fmt": "eur", "promo": false, "group": "Бізнес-масштаб", "bench": 17609.5, "brands": {"KOPIYKA": [18501.0, 18637.0, 16985.0, 16191.0, 14141.0, 15154.0], "KOPIYKA MINI": [4204.0, 3658.0, 4279.0, 4356.0, 5093.0, 5325.0], "SANTIM": [4679.0, 5346.0, 7694.0, 6979.0, 6250.0, 6334.0]}}, {"key": "Orders", "label": "Замовлення", "dir": 1, "fmt": "int", "promo": false, "group": "Бізнес-масштаб", "bench": 1183.33, "brands": {"KOPIYKA": [1523.0, 1443.0, 1522.0, 1317.0, 1250.0, 1339.0], "KOPIYKA MINI": [351.0, 326.0, 386.0, 353.0, 473.0, 466.0], "SANTIM": [317.0, 370.0, 498.0, 420.0, 436.0, 390.0]}}, {"key": "Active Users", "label": "Активні клієнти", "dir": 1, "fmt": "int", "promo": false, "group": "Бізнес-масштаб", "bench": 686.0, "brands": {"KOPIYKA": [699.0, 747.0, 679.0, 569.0, 555.0, 530.0], "KOPIYKA MINI": [212.0, 210.0, 221.0, 171.0, 222.0, 231.0], "SANTIM": [161.0, 194.0, 220.0, 151.0, 190.0, 160.0]}}, {"key": "New Users", "label": "Нові клієнти", "dir": 1, "fmt": "int", "promo": false, "group": "Бізнес-масштаб", "bench": 51.08, "brands": {"KOPIYKA": [66.0, 74.0, 66.0, 47.0, 63.0, 52.0], "KOPIYKA MINI": [26.0, 23.0, 19.0, 19.0, 21.0, 22.0], "SANTIM": [11.0, 17.0, 11.0, 6.0, 7.0, 11.0]}}, {"key": "Frequency", "label": "Частота замовлень", "dir": 1, "fmt": "dec", "promo": false, "group": "Бізнес-масштаб", "bench": 1.58, "brands": {"KOPIYKA": [2.18, 1.93, 2.24, 2.31, 2.25, 2.53], "KOPIYKA MINI": [1.66, 1.55, 1.75, 2.06, 2.13, 2.02], "SANTIM": [1.97, 1.91, 2.26, 2.78, 2.29, 2.44]}}, {"key": "Active Merchants", "label": "Активні магазини", "dir": 1, "fmt": "int", "promo": false, "group": "Бізнес-масштаб", "bench": 17.75, "brands": {"KOPIYKA": [61.0, 60.0, 60.0, 60.0, 60.0, 60.0], "KOPIYKA MINI": [22.0, 21.0, 21.0, 19.0, 18.0, 18.0], "SANTIM": [3.0, 3.0, 3.0, 3.0, 3.0, 3.0]}}, {"key": "__SKU__", "label": "К-сть SKU / магазин", "dir": 1, "fmt": "int", "promo": false, "group": "Асортимент", "bench": null, "brands": {"KOPIYKA": [3315, 3849, 4155, 3977, 3233, 4054], "KOPIYKA MINI": [3665, 3594, 3955, 3934, 3884, 3903], "SANTIM": [9536, 9209, 9995, 10084, 10173, 10062]}}, {"key": "SKU Availability", "label": "Доступність SKU, %", "dir": 1, "fmt": "pct", "promo": false, "group": "Асортимент", "bench": 52.83, "brands": {"KOPIYKA": [0.0, 0.0, 26.0, 87.0, 88.0, 87.0], "KOPIYKA MINI": [0.0, 0.0, 30.0, 88.0, 88.0, 87.0], "SANTIM": [0.0, 0.0, 24.0, 86.0, 87.0, 84.0]}}, {"key": "GMV per Order", "label": "Середній чек (AOV)", "dir": 1, "fmt": "eur", "promo": false, "group": "Юніт-економіка", "bench": 12.92, "brands": {"KOPIYKA": [12.0, 13.0, 11.0, 12.0, 11.0, 11.0], "KOPIYKA MINI": [12.0, 11.0, 11.0, 12.0, 11.0, 11.0], "SANTIM": [15.0, 14.0, 15.0, 17.0, 14.0, 16.0]}}, {"key": "GMV per Merchant", "label": "GMV на магазин", "dir": 1, "fmt": "eur", "promo": false, "group": "Юніт-економіка", "bench": 415.56, "brands": {"KOPIYKA": [303.3, 310.62, 283.08, 269.84, 235.69, 252.57], "KOPIYKA MINI": [191.09, 174.17, 203.78, 229.27, 282.96, 295.81], "SANTIM": [1559.63, 1781.9, 2564.66, 2326.43, 2083.2, 2111.41]}}, {"key": "Orders per Merchant", "label": "Замовлень на магазин", "dir": 1, "fmt": "int", "promo": false, "group": "Юніт-економіка", "bench": 29.92, "brands": {"KOPIYKA": [25.0, 24.0, 25.0, 22.0, 21.0, 22.0], "KOPIYKA MINI": [16.0, 16.0, 18.0, 19.0, 26.0, 26.0], "SANTIM": [106.0, 123.0, 166.0, 140.0, 145.0, 130.0]}}, {"key": "Impressions", "label": "Покази в застосунку", "dir": 1, "fmt": "int", "promo": false, "group": "Воронка попиту", "bench": 100037.5, "brands": {"KOPIYKA": [122416.0, 95725.0, 86581.0, 85870.0, 87421.0, 77932.0], "KOPIYKA MINI": [63746.0, 44123.0, 41019.0, 50031.0, 46994.0, 37756.0], "SANTIM": [30966.0, 25976.0, 26826.0, 24909.0, 25938.0, 25330.0]}}, {"key": "Menu views", "label": "Перегляди меню", "dir": 1, "fmt": "int", "promo": false, "group": "Воронка попиту", "bench": 5974.25, "brands": {"KOPIYKA": [6509.0, 5532.0, 4966.0, 4551.0, 4648.0, 4228.0], "KOPIYKA MINI": [2175.0, 1716.0, 1563.0, 1645.0, 1907.0, 1629.0], "SANTIM": [1480.0, 1474.0, 1815.0, 1458.0, 1503.0, 1319.0]}}, {"key": "Menu Engagement Rate", "label": "Menu Engagement", "dir": 1, "fmt": "pct", "promo": false, "group": "Воронка попиту", "bench": 26.42, "brands": {"KOPIYKA": [48.0, 50.0, 50.0, 48.0, 44.0, 48.0], "KOPIYKA MINI": [37.0, 40.0, 46.0, 37.0, 39.0, 43.0], "SANTIM": [41.0, 45.0, 45.0, 42.0, 42.0, 43.0]}}, {"key": "Cart Abandonment Rate", "label": "Покинуті кошики", "dir": -1, "fmt": "pct", "promo": false, "group": "Воронка попиту", "bench": 45.92, "brands": {"KOPIYKA": [49.0, 53.0, 60.0, 58.0, 58.0, 62.0], "KOPIYKA MINI": [48.0, 48.0, 55.0, 56.0, 60.0, 65.0], "SANTIM": [55.0, 57.0, 57.0, 61.0, 64.0, 64.0]}}, {"key": "Conversion Rate", "label": "Конверсія", "dir": 1, "fmt": "pct", "promo": false, "group": "Воронка попиту", "bench": 12.92, "brands": {"KOPIYKA": [24.0, 26.0, 30.0, 28.0, 26.0, 30.0], "KOPIYKA MINI": [18.0, 19.0, 25.0, 21.0, 23.0, 28.0], "SANTIM": [23.0, 26.0, 26.0, 26.0, 27.0, 28.0]}}, {"key": "Merchant Availability Rate", "label": "Доступність магазинів", "dir": 1, "fmt": "pct", "promo": false, "group": "Доступність", "bench": 53.33, "brands": {"KOPIYKA": [96.0, 96.0, 95.0, 93.0, 91.0, 91.0], "KOPIYKA MINI": [96.0, 97.0, 98.0, 98.0, 95.0, 96.0], "SANTIM": [97.0, 97.0, 94.0, 91.0, 95.0, 90.0]}}, {"key": "Total Delivery Time, min", "label": "Час доставки", "dir": -1, "fmt": "min", "promo": false, "group": "Швидкість і якість", "bench": 73.67, "brands": {"KOPIYKA": [66.0, 51.0, 37.0, 37.0, 49.0, 34.0], "KOPIYKA MINI": [51.0, 52.0, 33.0, 65.0, 88.0, 70.0], "SANTIM": [54.0, 45.0, 37.0, 42.0, 33.0, 45.0]}}, {"key": "Late Delivery (10+min) Rate", "label": "Запізнення (10+хв)", "dir": -1, "fmt": "pct", "promo": false, "group": "Швидкість і якість", "bench": 6.58, "brands": {"KOPIYKA": [22.0, 14.0, 11.0, 12.0, 11.0, 8.0], "KOPIYKA MINI": [17.0, 13.0, 7.0, 9.0, 10.0, 9.0], "SANTIM": [20.0, 8.0, 7.0, 8.0, 9.0, 7.0]}}, {"key": "Not-delivered orders, %", "label": "Недоставлені", "dir": -1, "fmt": "pct", "promo": false, "group": "Швидкість і якість", "bench": 18.0, "brands": {"KOPIYKA": [11.0, 8.0, 6.0, 5.0, 5.0, 6.0], "KOPIYKA MINI": [17.0, 9.0, 7.0, 8.0, 5.0, 7.0], "SANTIM": [11.0, 6.0, 4.0, 3.0, 4.0, 5.0]}}, {"key": "Order Defect Rate", "label": "Order Defect Rate", "dir": -1, "fmt": "pct", "promo": false, "group": "Швидкість і якість", "bench": 22.42, "brands": {"KOPIYKA": [43.0, 39.0, 35.0, 35.0, 32.0, 35.0], "KOPIYKA MINI": [31.0, 24.0, 23.0, 21.0, 21.0, 20.0], "SANTIM": [43.0, 36.0, 35.0, 33.0, 32.0, 34.0]}}, {"key": "Order Replacement Rate", "label": "Заміни товарів", "dir": -1, "fmt": "pct", "promo": false, "group": "Швидкість і якість", "bench": 13.0, "brands": {"KOPIYKA": [42.0, 38.0, 27.0, 22.0, 21.0, 29.0], "KOPIYKA MINI": [43.0, 33.0, 28.0, 22.0, 21.0, 30.0], "SANTIM": [46.0, 32.0, 22.0, 16.0, 17.0, 27.0]}}, {"key": "CS Ticket Order Rate", "label": "Звернення в підтримку", "dir": -1, "fmt": "pct", "promo": false, "group": "Швидкість і якість", "bench": 6.75, "brands": {"KOPIYKA": [13.0, 10.0, 6.0, 6.0, 5.0, 4.0], "KOPIYKA MINI": [13.0, 7.0, 5.0, 4.0, 5.0, 5.0], "SANTIM": [12.0, 7.0, 7.0, 5.0, 7.0, 5.0]}}, {"key": "Item-Level Promo, GMV %", "label": "Промо на товари, % GMV", "dir": 0, "fmt": "pct", "promo": true, "group": "Промо-доля", "bench": 2.83, "brands": {"KOPIYKA": [11.0, 14.0, 5.0, 18.0, 8.0, 8.0], "KOPIYKA MINI": [14.0, 16.0, 4.0, 19.0, 2.0, 25.0], "SANTIM": [8.0, 17.0, 3.0, 8.0, 1.0, 14.0]}}, {"key": "Campaigns Discount, GMV %", "label": "Знижки кампаній, % GMV", "dir": 0, "fmt": "pct", "promo": true, "group": "Промо-доля", "bench": 3.42, "brands": {"KOPIYKA": [7.0, 7.0, 7.0, 8.0, 5.0, 5.0], "KOPIYKA MINI": [7.0, 9.0, 7.0, 9.0, 4.0, 10.0], "SANTIM": [3.0, 8.0, 7.0, 5.0, 4.0, 8.0]}}, {"key": "Orders with Delivery Fee Campaign", "label": "Замовл. з безкошт. доставкою", "dir": 0, "fmt": "pct", "promo": true, "group": "Промо-доля", "bench": 30.17, "brands": {"KOPIYKA": [55.0, 60.0, 83.0, 55.0, 57.0, 46.0], "KOPIYKA MINI": [48.0, 59.0, 86.0, 56.0, 53.0, 42.0], "SANTIM": [10.0, 51.0, 86.0, 67.0, 75.0, 61.0]}}, {"key": "Eater Frees, AOV %", "label": "Комісія клієнта, % AOV", "dir": 0, "fmt": "pct", "promo": false, "group": "Промо-доля", "bench": 17.83, "brands": {"KOPIYKA": [17.0, 18.0, 20.0, 17.0, 15.0, 15.0], "KOPIYKA MINI": [18.0, 21.0, 21.0, 17.0, 16.0, 15.0], "SANTIM": [13.0, 15.0, 15.0, 13.0, 15.0, 13.0]}}, {"key": "Bolt Plus GMV Share", "label": "Bolt Plus GMV Share", "dir": 0, "fmt": "pct", "promo": false, "group": "Промо-доля", "bench": 16.75, "brands": {"KOPIYKA": [14.0, 14.0, 12.0, 16.0, 15.0, 14.0], "KOPIYKA MINI": [9.0, 13.0, 9.0, 9.0, 9.0, 13.0], "SANTIM": [22.0, 25.0, 22.0, 16.0, 16.0, 19.0]}}], "highlights": {"KOPIYKA": [{"level": "watch", "kind": "Промо-доля", "text": "Сумарна промо-доля ~17% GMV (товарні 11% + кампанії 6%). Бенчмарк ~6%. Промо-залежність вища за сегмент — варто оптимізувати ROI знижок."}, {"level": "watch", "kind": "Конверсія", "text": "Просідання конверсії Бер→Кві: 30%→28%. За період Січ 24% → Чер 30%. Бенчмарк 13%."}, {"level": "crit", "kind": "SKU / асортимент", "text": "Доступність SKU за Кві–Чер ~87% (бенчмарк 53%). Асортимент ~4 054 SKU/магазин. У Січ/Лют доступність була 0% — критичний провал наповнення каталогу."}, {"level": "watch", "kind": "Нові клієнти", "text": "Приплив нових клієнтів у сер. ~61/міс (бенчмарк ~51); Q1→Q2 падіння (69→54/міс). Потрібно посилити залучення."}, {"level": "crit", "kind": "Де посилитись", "text": "Найбільші розриви з сегментом: Заміни товарів (30% vs 13%); Запізнення (10+хв) (13% vs 7%); Order Defect Rate (36% vs 22%); GMV на магазин (€276 vs €416)."}], "KOPIYKA MINI": [{"level": "watch", "kind": "Промо-доля", "text": "Сумарна промо-доля ~21% GMV (товарні 13% + кампанії 8%). Бенчмарк ~6%. Промо-залежність вища за сегмент — варто оптимізувати ROI знижок."}, {"level": "watch", "kind": "Конверсія", "text": "Просідання конверсії Бер→Кві: 25%→21%. За період Січ 18% → Чер 28%. Бенчмарк 13%."}, {"level": "crit", "kind": "SKU / асортимент", "text": "Доступність SKU за Кві–Чер ~88% (бенчмарк 53%). Асортимент ~3 903 SKU/магазин. У Січ/Лют доступність була 0% — критичний провал наповнення каталогу."}, {"level": "crit", "kind": "Нові клієнти", "text": "Приплив нових клієнтів у сер. ~22/міс (бенчмарк ~51); Q1→Q2 падіння (23→21/міс). Потрібно посилити залучення."}, {"level": "crit", "kind": "Де посилитись", "text": "Найбільші розриви з сегментом: Заміни товарів (30% vs 13%); GMV (€) (€4 486 vs €17 610); Перегляди меню (1 772 vs 5 974); Активні клієнти (211 vs 686)."}], "SANTIM": [{"level": "watch", "kind": "Промо-доля", "text": "Сумарна промо-доля ~14% GMV (товарні 8% + кампанії 6%). Бенчмарк ~6%. Промо-залежність вища за сегмент — варто оптимізувати ROI знижок."}, {"level": "win", "kind": "Конверсія", "text": "Конверсія стабільна/зростає: Січ 23% → Чер 28% (бенчмарк 13%)."}, {"level": "crit", "kind": "SKU / асортимент", "text": "Доступність SKU за Кві–Чер ~86% (бенчмарк 53%). Асортимент ~10 062 SKU/магазин. У Січ/Лют доступність була 0% — критичний провал наповнення каталогу."}, {"level": "crit", "kind": "Нові клієнти", "text": "Приплив нових клієнтів у сер. ~10/міс (бенчмарк ~51); Q1→Q2 падіння (13→8/міс). Потрібно посилити залучення."}, {"level": "crit", "kind": "Де посилитись", "text": "Найбільші розриви з сегментом: Заміни товарів (27% vs 13%); Активні магазини (3 vs 18); Нові клієнти (10 vs 51); Перегляди меню (1 508 vs 5 974)."}]}, "banner": {"months": ["Кві", "Тра", "Чер"], "enroll": [27844, 29983, 28687], "view": [10.77, 10.19, 5.91], "tap": [1.37, 1.78, 1.0], "conv": [13.74, 13.45, 13.98], "freq": [2.7, 2.8, 3.2], "notes": ["Банер «UA Kopiyka Items discount» (знижки на товари) на головному екрані, квіт–чер 2026.", "Охоплення різко впало у червні: %перегляду 10.8%→5.9% при стабільних ~28–30К enrollment — банер став показуватись помітно рідше.", "Tap-rate низький (~1.0–1.8%) — креатив/позиція слабо клікаються; у червні найнижчий (1.0%).", "Конверсія з банера стабільна ~13–14%, частота показів зросла 2.7→3.2.", "Рекомендація: оновити креатив, відновити частку показів у червні та тестувати новий меседж/офер для підняття tap-rate."]}};
+const G=R.group, L=R.group_lbl, ML=R.month_lbl;
+const clsByBrand={"KOPIYKA":"bh-kop","KOPIYKA MINI":"bh-mini","SANTIM":"bh-santim"};
 function fmt(v,f){
   if(v===null||v===undefined||Number.isNaN(v))return "—";
   if(f==="eur")return "€"+Math.round(v).toLocaleString("uk-UA");
@@ -153,106 +104,59 @@ function fmt(v,f){
   if(f==="min")return Math.round(v)+" хв";
   return v;
 }
-function pctStr(p){if(p===null||p===undefined)return "";return (p>0?"+":"")+p.toFixed(1)+"%";}
-function arrow(v){return v==="up"?"▲":v==="down"?"▼":v==="flat"?"▬":"◆";}
-
-/* brand tabs */
-const tabs=document.getElementById("brandTabs");
-GROUP.forEach(b=>{
-  const btn=document.createElement("button");
-  btn.textContent=LBL[b]; btn.dataset.b=b;
-  if(b===brand)btn.classList.add("active");
-  btn.onclick=()=>{brand=b;document.querySelectorAll("#brandTabs button").forEach(x=>x.classList.toggle("active",x.dataset.b===b));renderAll();};
-  tabs.appendChild(btn);
+/* highlights */
+const hl=document.getElementById("hl");
+G.forEach(b=>{
+  const col=document.createElement("div");col.className="hcol";
+  let html=`<h3><span class="tag" style="background:var(--${b==='KOPIYKA'?'kop':b==='KOPIYKA MINI'?'mini':'santim'})"></span>${L[b]}</h3>`;
+  R.highlights[b].forEach(h=>{
+    html+=`<div class="hitem ${h.level}"><div class="k">${h.kind}</div><div class="t">${h.text}</div></div>`;
+  });
+  col.innerHTML=html;hl.appendChild(col);
 });
-
-const kpiKeys=["GMV","Orders","Active Users","GMV per Order","Conversion Rate","Order Defect Rate"];
-function renderKpi(){
-  const c=document.getElementById("kpiCards");c.innerHTML="";
-  kpiKeys.forEach(k=>{
-    const m=byKey[k];const bd=m.brands[brand];const q2=bd.q[1];const t=bd.trend;const b=m.bench_q[1];
-    const cls=t?t.verdict:"neu";
-    const d=document.createElement("div");d.className="card";
-    d.innerHTML=`<div class="k">${m.label} · Q2</div><div class="v">${fmt(q2,m.fmt)}</div>
-      <div class="d ${cls}">${t?arrow(t.verdict)+" "+pctStr(t.pct)+" vs Q1":""}</div>
-      <div class="b">бенчмарк: ${fmt(b,m.fmt)}</div>`;
-    c.appendChild(d);
+/* banner table */
+(function(){
+  const bt=R.banner;
+  let h=`<thead><tr><th>Показник</th>`+bt.months.map(m=>`<th>${m}</th>`).join("")+`</tr></thead><tbody>`;
+  const rows=[["Enrollment","enroll","int"],["% перегляду","view","pct1"],["% тапу","tap","pct1"],["% конверсії","conv","pct1"],["Частота показів","freq","dec1"]];
+  rows.forEach(([lbl,key,f])=>{
+    h+=`<tr><td>${lbl}</td>`+bt[key].map(v=>{
+      let s = f==="int"?Math.round(v).toLocaleString("uk-UA"): f==="pct1"?v.toFixed(2)+"%": v.toFixed(1);
+      return `<td>${s}</td>`;
+    }).join("")+`</tr>`;
   });
-}
-function renderInsights(){
-  const ins=R.insights[brand];
-  document.getElementById("strengths").innerHTML = ins.strengths.length? ins.strengths.map(s=>`<li>${s}</li>`).join("") : "<li>—</li>";
-  document.getElementById("trendsUp").innerHTML = ins.trends_up.length? ins.trends_up.map(t=>`<li>${t.label} <span class="up">${pctStr(t.pct)}</span></li>`).join("") : "<li>—</li>";
-  document.getElementById("trendsDown").innerHTML = ins.trends_down.length? ins.trends_down.map(t=>`<li>${t.label} <span class="down">${pctStr(t.pct)}</span></li>`).join("") : "<li>—</li>";
-  const o=document.getElementById("opps");o.innerHTML="";
-  if(!ins.opps.length){o.innerHTML='<div class="panel">Помітних розривів із сегментом немає — показники на рівні або вищі за бенчмарк.</div>';}
-  ins.opps.forEach(op=>{
-    const crit=op.tags.includes("гірше за сегмент")&&op.tags.includes("падіння Q1→Q2");
-    const div=document.createElement("div");div.className="imp "+(crit?"crit":"watch");
-    const tg=op.tags.map(t=>`<span class="pill ${t.indexOf('гірше')>=0?'crit':'watch'}">${t}</span>`).join(" ");
-    div.innerHTML=`<div class="t">${op.label} ${tg}</div>
-      <div class="m">Рекомендація: ${op.advice}.</div>
-      <div class="nums">Q2 бренд: <b>${fmt(op.q2,op.fmt)}</b> · бенчмарк: <b>${fmt(op.bench,op.fmt)}</b>${op.trend?` · тренд: <b class="${op.trend.verdict}">${arrow(op.trend.verdict)} ${pctStr(op.trend.pct)}</b>`:""}</div>`;
-    o.appendChild(div);
-  });
-}
-const chartKeys=["GMV","Orders","Active Users","New Users","Cart Abandonment Rate","Conversion Rate","GMV per Order","Total Delivery Time, min","Order Defect Rate","SKU Availability"];
-function renderCharts(){
-  document.getElementById("legBrand").textContent=LBL[brand];
-  const cg=document.getElementById("chartGrid");
-  charts.forEach(c=>c.destroy());charts=[];cg.innerHTML="";
-  Chart.defaults.color="#9aa4b2";Chart.defaults.font.size=11;
-  chartKeys.forEach(k=>{
-    const m=byKey[k];const bd=m.brands[brand];
-    const box=document.createElement("div");box.className="chartbox";
-    box.innerHTML=`<h4>${m.label}</h4><canvas></canvas>`;cg.appendChild(box);
-    const ch=new Chart(box.querySelector("canvas"),{type:"line",
-      data:{labels:R.month_lbl,datasets:[
-        {label:LBL[brand],data:bd.m,borderColor:"#34d399",backgroundColor:"#34d399",tension:.3,borderWidth:2.5,pointRadius:2},
-        {label:"Бенчмарк",data:m.bench_m,borderColor:"#94a3b8",tension:.3,borderWidth:1.5,borderDash:[5,4],pointRadius:0},
-      ]},
-      options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{grid:{color:"#232833"}},x:{grid:{display:false}}}}});
-    charts.push(ch);
-  });
-}
-function renderTable(){
+  document.getElementById("bannerTable").innerHTML=h+`</tbody>`;
+  document.getElementById("bannerNotes").innerHTML=bt.notes.map(n=>`<li>${n}</li>`).join("");
+})();
+/* main table */
+(function(){
   const t=document.getElementById("mainTable");
-  const cols=view==="month"?R.month_lbl:R.quarters;
-  let head=`<thead><tr><th>Показник</th>`;
-  cols.forEach(c=>head+=`<th>${LBL[brand]} · ${c}</th>`);
-  cols.forEach(c=>head+=`<th>Бенчмарк · ${c}</th>`);
-  head+=`<th>Тренд Q1→Q2</th></tr></thead>`;
+  // header 2 rows
+  let h1=`<tr><th rowspan="2">Показник</th>`;
+  G.forEach((b,gi)=>{ h1+=`<th class="${clsByBrand[b]} ${gi>0?'sep':''}" colspan="6">${L[b]}</th>`; });
+  h1+=`<th rowspan="2" class="benchcol">Бенчмарк<br>(6 міс)</th></tr>`;
+  let h2="<tr>";
+  G.forEach((b,gi)=>{ ML.forEach((m,mi)=>{ h2+=`<th class="${clsByBrand[b]} ${gi>0&&mi===0?'sep':''}">${m}</th>`; }); });
+  h2+="</tr>";
   let body="<tbody>";let cur=null;
-  M.forEach(m=>{
-    if(m.group!==cur){cur=m.group;body+=`<tr><td class="grp" colspan="${1+cols.length*2+1}">${cur}</td></tr>`;}
-    const bd=m.brands[brand];
-    const bv=view==="month"?bd.m:bd.q;
-    const ben=view==="month"?m.bench_m:m.bench_q;
+  R.metrics.forEach(m=>{
+    if(m.group!==cur){cur=m.group; body+=`<tr class="grp"><td colspan="${2+G.length*6}">${cur}</td></tr>`;}
     body+=`<tr><td>${m.label}</td>`;
-    bv.forEach(v=>body+=`<td>${fmt(v,m.fmt)}</td>`);
-    ben.forEach((cv,i)=>{
-      const kv=bv[i];let cls="";
-      if(kv!==null&&cv!==null&&m.dir!==0){
-        const better=(m.dir===1&&kv>=cv)||(m.dir===-1&&kv<=cv);
-        cls=better?"cell-good":"cell-bad";
-      }
-      body+=`<td class="${cls}">${fmt(cv,m.fmt)}</td>`;
+    G.forEach((b,gi)=>{
+      m.brands[b].forEach((v,mi)=>{
+        let cls=gi>0&&mi===0?"sep ":"";
+        if(m.promo){ cls+="cell-promo"; }
+        else if(v!==null&&m.bench!==null&&m.dir!==0){
+          const better=(m.dir===1&&v>=m.bench)||(m.dir===-1&&v<=m.bench);
+          cls+=better?"cell-good":"cell-bad";
+        }
+        body+=`<td class="${cls}">${fmt(v,m.fmt)}</td>`;
+      });
     });
-    body+= bd.trend?`<td class="${bd.trend.verdict}">${arrow(bd.trend.verdict)} ${pctStr(bd.trend.pct)}</td>`:`<td>—</td>`;
-    body+=`</tr>`;
+    body+=`<td class="benchcol">${fmt(m.bench,m.fmt)}</td></tr>`;
   });
-  t.innerHTML=head+body+"</tbody>";
-}
-document.querySelectorAll("#viewToggle button").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll("#viewToggle button").forEach(x=>x.classList.remove("active"));
-  b.classList.add("active");view=b.dataset.v;renderTable();
-});
-function renderAll(){
-  document.getElementById("mainTitle").textContent=LBL[brand]+" — огляд ефективності 2026";
-  document.getElementById("secKpi").textContent="Ключові показники · "+LBL[brand]+" · Q2 2026";
-  renderKpi();renderInsights();renderCharts();renderTable();
-}
-renderAll();
+  t.innerHTML=`<thead>${h1}${h2}</thead>`+body+`</tbody>`;
+})();
 </script>
 </body>
 </html>
